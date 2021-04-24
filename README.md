@@ -11,3 +11,4 @@
 - [XAML Controls Gallery](https://github.com/microsoft/Xaml-Controls-Gallery/tree/winui3)
 - [Windows UI Library](https://github.com/microsoft/microsoft-ui-xaml)
 - [Win2D](https://github.com/microsoft/Win2D/tree/reunion_master)
+- [Learn WinUI 3.0](https://github.com/PacktPublishing/-Learn-WinUI-3.0)
