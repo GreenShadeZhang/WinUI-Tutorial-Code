@@ -11,6 +11,10 @@
     <UseWinUI>true</UseWinUI>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="HomePage.xaml" />
+    <None Remove="ShellRootPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -31,5 +35,14 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.20348.19" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="ShellRootPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
