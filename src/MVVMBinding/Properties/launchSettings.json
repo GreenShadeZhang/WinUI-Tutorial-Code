@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MVVMBinding": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
