@@ -1,0 +1,44 @@
+﻿<Window
+    x:Class="WinUI.UseLiteDB.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="using:WinUI.UseLiteDB.Models"
+    xmlns:local="using:WinUI.UseLiteDB"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <controls:AdaptiveGridView
+            DesiredWidth="360"
+            ItemHeight="240"
+            ItemsSource="{x:Bind ViewModel.Infos, Mode=OneWay}"
+            OneRowModeEnabled="False"
+            StretchContentForSingleRow="False">
+            <controls:AdaptiveGridView.ItemTemplate>
+                <DataTemplate x:DataType="data:PersonalInfoDto">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <controls:ImageEx Margin="8" Source="{x:Bind AvatarBitmap, Mode=OneWay}" />
+                        <StackPanel Grid.Column="1" Margin="8">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontWeight="Bold"
+                                Text="{x:Bind Name, Mode=OneWay}" />
+                            <TextBlock
+                                Height="200"
+                                Text="{x:Bind Desc, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="WrapWholeWords"
+                                ToolTipService.ToolTip="{x:Bind Desc, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </controls:AdaptiveGridView.ItemTemplate>
+        </controls:AdaptiveGridView>
+    </Grid>
+</Window>

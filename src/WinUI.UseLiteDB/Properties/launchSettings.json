@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinUI.UseLiteDB (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUI.UseLiteDB (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
