@@ -2,6 +2,22 @@
 
 ### 主要是一些Windows App SDK（WinUI3） 学习记录教程的示例代码
 
+
+## ***WinUI.UseLiteDB***
+
+这个项目展示了winui结合liteDb进行数据的存储 对于大量的图片放在数据库文件里 比放在Assets目录里会流畅很多
+
+![image](/Images/WinUI.UseLiteDB.png)
+
+
+## ***CameraFrames***
+
+添加摄像头帧事件处理DEMO 项目为UWP官方DEMO迁移到WASDK测试
+
+效果图如下
+
+![cameraFrames](/Images/CameraFrames.png)
+
 ## 推荐阅读博客
 - [Windows 应用 SDK](https://docs.microsoft.com/zh-CN/windows/apps/windows-app-sdk/)
 - [Windows UI 库 (WinUI) 官方文档](https://docs.microsoft.com/zh-cn/windows/apps/winui/)
