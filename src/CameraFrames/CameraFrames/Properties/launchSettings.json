@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CameraFrames (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CameraFrames (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
