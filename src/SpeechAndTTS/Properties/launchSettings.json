@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SpeechAndTTS (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SpeechAndTTS (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
