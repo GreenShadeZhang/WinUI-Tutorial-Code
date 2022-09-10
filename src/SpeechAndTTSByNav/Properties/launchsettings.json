@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "SpeechAndTTSByNav (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "SpeechAndTTSByNav (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
