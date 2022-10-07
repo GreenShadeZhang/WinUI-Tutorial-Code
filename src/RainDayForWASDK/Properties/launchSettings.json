@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RainDayForWASDK (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "RainDayForWASDK (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
