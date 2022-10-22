@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GamepadController (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "GamepadController (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
