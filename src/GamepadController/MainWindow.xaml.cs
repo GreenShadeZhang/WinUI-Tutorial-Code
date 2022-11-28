@@ -93,7 +93,7 @@ public sealed partial class MainWindow : Window
 
     private void dispatcherTimer_Tick(object sender, object e)
     {
-        if (Gamepad.Gamepads.Count > 0 && MyPort.IsOpen)
+        if (Gamepad.Gamepads.Count > 0)
         {
             controller = Gamepad.Gamepads.First();
             var reading = controller.GetCurrentReading();
@@ -158,7 +158,7 @@ public sealed partial class MainWindow : Window
 
             int duo = (int)duoji;
 
-            MyPort.WriteLine(String.Format("{0} {1}", duo, a));
+            //MyPort.WriteLine(String.Format("{0} {1}", duo, a));
             //if (a > 1350)
             //{
 
