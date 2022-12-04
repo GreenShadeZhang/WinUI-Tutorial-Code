@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MediaPipe.GestureClassification (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MediaPipe.GestureClassification (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
