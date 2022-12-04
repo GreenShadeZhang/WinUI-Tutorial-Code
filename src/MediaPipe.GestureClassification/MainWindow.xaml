@@ -13,8 +13,8 @@
     <StackPanel
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
-        Orientation="Horizontal">
+        Orientation="Vertical">
         <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-        <TextBlock x:Name="HandResult" />
+        <TextBlock x:Name="HandResult" FontSize="72" />
     </StackPanel>
 </Window>
