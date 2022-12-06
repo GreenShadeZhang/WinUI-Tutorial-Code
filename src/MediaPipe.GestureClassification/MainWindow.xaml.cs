@@ -3,16 +3,19 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using FFmpeg.AutoGen;
+using System.Runtime.InteropServices;
+using CommunityToolkit.WinUI.Helpers;
 using Mediapipe.Net.Examples.Hands;
 using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Protobuf;
 using Mediapipe.Net.Solutions;
 using Microsoft.UI.Xaml;
-using SeeShark;
-using SeeShark.Device;
-using SeeShark.FFmpeg;
+using Windows.Graphics.Imaging;
+using Windows.Media;
+using Windows.Storage.Streams;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,96 +26,116 @@ namespace MediaPipe.GestureClassification;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    private static Camera? camera;
-    private static FrameConverter? converter;
     private static HandsCpuSolution? calculator;
     private int frameCount = 0;
+    readonly CameraHelper cameraHelper = new();
     public MainWindow()
     {
         this.InitializeComponent();
         calculator = new HandsCpuSolution();
+
+        Closed += MainWindow_Closed;
     }
-    private async void myButton_Click(object sender, RoutedEventArgs e)
+
+    private async void MainWindow_Closed(object sender, WindowEventArgs args)
     {
-        // Get and parse command line arguments
-        Options? parsed = new Options();
-        if (parsed == null)
-            return;
-
-        (int, int)? videoSize = null;
-        if (parsed.Width != null && parsed.Height != null)
-            videoSize = ((int)parsed.Width, (int)parsed.Height);
-        myButton.Content = "Clicked";
-        FFmpegManager.SetupFFmpeg(@"C:\ffmpeg\v5.0_x64\", "/usr/lib");
-
-
-        // Get a camera device
-        using (CameraManager manager = new CameraManager())
+        if (cameraHelper != null)
         {
-            try
-            {
-                camera = manager.GetDevice(0,
-                    new VideoInputOptions
-                    {
-                        InputFormat = parsed.InputFormat,
-                        Framerate = parsed.Framerate == null ? null : new AVRational
-                        {
-                            num = (int)parsed.Framerate,
-                            den = 1,
-                        },
-                        VideoSize = videoSize,
-                    });
-                Console.WriteLine($"Using camera {camera.Info}");
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
+            cameraHelper.FrameArrived -= CameraHelper_FrameArrived;
+            await cameraHelper.CleanUpAsync();
         }
 
-        calculator = new HandsCpuSolution();
-
-        camera.OnFrame += OnFrameEventHandler;
-        camera.StartCapture();
     }
 
-    private async void OnFrameEventHandler(object? sender, SeeShark.FrameEventArgs e)
+    private async void myButton_Click(object sender, RoutedEventArgs e)
     {
-        if (calculator == null)
-            return;
 
-        Frame frame = e.Frame;
-        if (frame.Width == 0 || frame.Height == 0)
-            return;
+        //CameraHelper cameraHelper = new CameraHelper();
+        var result = await cameraHelper.InitializeAndStartCaptureAsync();
 
-        converter ??= new FrameConverter(frame, PixelFormat.Rgba);
-        Frame cFrame = converter.Convert(frame);
-
-        ImageFrame imgframe = new ImageFrame(ImageFormat.Types.Format.Srgba,
-            cFrame.Width, cFrame.Height, cFrame.WidthStep, cFrame.RawData);
-
-        HandsOutput handsOutput = calculator.Compute(imgframe);
-
-        if (handsOutput.MultiHandLandmarks != null)
+        if (result == CameraHelperResult.Success)
         {
-            var landmarks = handsOutput.MultiHandLandmarks[0].Landmark;
-            Debug.WriteLine($"Got hands output with {landmarks.Count} landmarks"
-                + $" at frame {frameCount}");
-
-            //await HandDataFormatHelper.SaveDataToTextAsync(landmarks.ToList());
-
-            var result = HandDataFormatHelper.PredictResult(landmarks.ToList());
-
-            this.DispatcherQueue.TryEnqueue(() =>
-            {
-                HandResult.Text = result;
-            });
+            // Subscribe to get frames as they arrive
+            cameraHelper.FrameArrived += CameraHelper_FrameArrived;
         }
         else
         {
-            Debug.WriteLine("No hand landmarks");
+            // Get error information
+            var errorMessage = result.ToString();
         }
+    }
 
+    private async void CameraHelper_FrameArrived(object sender, CommunityToolkit.WinUI.Helpers.FrameEventArgs e)
+    {
+        try
+        {
+            // Gets the current video frame
+            VideoFrame currentVideoFrame = e.VideoFrame;
+
+            // Gets the software bitmap image
+            SoftwareBitmap softwareBitmap = currentVideoFrame.SoftwareBitmap;
+
+            if (softwareBitmap != null)
+            {
+                if (softwareBitmap.BitmapPixelFormat != BitmapPixelFormat.Bgra8 ||
+                 softwareBitmap.BitmapAlphaMode == BitmapAlphaMode.Straight)
+                {
+                    softwareBitmap = SoftwareBitmap.Convert(
+                        softwareBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                }
+
+                using IRandomAccessStream stream = new InMemoryRandomAccessStream();
+
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+
+                // Set the software bitmap
+                encoder.SetSoftwareBitmap(softwareBitmap);
+
+                await encoder.FlushAsync();
+
+                var image = new Bitmap(stream.AsStream());
+
+                var matData = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
+
+                var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGBA);
+
+                var dataMeta = mat2.Data;
+
+                var length = mat2.Width * mat2.Height * mat2.Channels();
+
+                var data = new byte[length];
+
+                Marshal.Copy(dataMeta, data, 0, length);
+
+                var widthStep = (int)mat2.Step();
+
+                var imgframe = new ImageFrame(ImageFormat.Types.Format.Srgba, mat2.Width, mat2.Height, widthStep, data);
+
+                var handsOutput = calculator.Compute(imgframe);
+
+                if (handsOutput.MultiHandLandmarks != null)
+                {
+                    var landmarks = handsOutput.MultiHandLandmarks[0].Landmark;
+
+                    Debug.WriteLine($"Got hands output with {landmarks.Count} landmarks" + $" at frame {frameCount}");
+
+                    var result = HandDataFormatHelper.PredictResult(landmarks.ToList());
+
+                    this.DispatcherQueue.TryEnqueue(() =>
+                    {
+                        HandResult.Text = result;
+                    });
+                }
+                else
+                {
+                    Debug.WriteLine("No hand landmarks");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
         frameCount++;
     }
 }
