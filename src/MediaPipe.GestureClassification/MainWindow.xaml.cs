@@ -13,6 +13,7 @@ using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Protobuf;
 using Mediapipe.Net.Solutions;
 using Microsoft.UI.Xaml;
+using Windows.ApplicationModel;
 using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Storage.Streams;
@@ -32,7 +33,7 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
-        calculator = new HandsCpuSolution();
+        calculator = new HandsCpuSolution(Package.Current.InstalledLocation.Path);
 
         Closed += MainWindow_Closed;
     }
@@ -95,7 +96,9 @@ public sealed partial class MainWindow : Window
 
                 var image = new Bitmap(stream.AsStream());
 
-                var matData = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
+                //var matData = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
+
+                var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\hand.jpg");
 
                 var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGBA);
 
