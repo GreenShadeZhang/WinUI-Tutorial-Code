@@ -17,6 +17,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\MLModel1.zip" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\BUILD" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\calculators\BUILD" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\calculators\hand_landmarks_to_rect_calculator.cc" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\handedness.txt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_cpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_full.tflite" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_gpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_landmarks_to_roi.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_model_loader.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_cpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_cpu_image.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_gpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_gpu_image.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\palm_detection_detection_to_roi.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\hand_landmark\README.md" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\BUILD" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_cpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_full.tflite" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_gpu.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_model_loader.pbtxt" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\palm_detection\README.md" />
+    <None Remove="VFS\SystemX64\mediapipe\modules\README.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +49,58 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\BUILD" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\calculators\BUILD" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\calculators\hand_landmarks_to_rect_calculator.cc" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\handedness.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_cpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_full.tflite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_gpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_landmarks_to_roi.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_model_loader.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_cpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_cpu_image.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_gpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\hand_landmark_tracking_gpu_image.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\palm_detection_detection_to_roi.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\hand_landmark\README.md" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\BUILD" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_cpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_full.tflite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_gpu.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\palm_detection_model_loader.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFS\SystemX64\mediapipe\modules\palm_detection\README.md" />
+    <Content Include="VFS\SystemX64\mediapipe\modules\README.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +127,9 @@
     <ProjectReference Include="..\Mediapipe.Net.Interop\Mediapipe.Net.Interop.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\hand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\MLModel1.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

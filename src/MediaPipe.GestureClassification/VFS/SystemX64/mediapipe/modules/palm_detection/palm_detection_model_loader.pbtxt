@@ -1,10 +1,10 @@
-# MediaPipe graph to load a selected hand landmark TF Lite model.
+# MediaPipe graph to load a selected palm detection TF Lite model.
 
-type: "HandLandmarkModelLoader"
+type: "PalmDetectionModelLoader"
 
-# Complexity of the hand landmark model: 0 or 1. Landmark accuracy as well as
-# inference latency generally go up with the model complexity. If unspecified,
-# functions as set to 1. (int)
+# Complexity of the palm detection model: 0 or 1. Accuracy as well as inference
+# latency generally go up with the model complexity. If unspecified, functions
+# as set to 1. (int)
 input_side_packet: "MODEL_COMPLEXITY:model_complexity"
 
 # TF Lite model represented as a FlatBuffer.
@@ -24,7 +24,7 @@ node {
         options: {
           [mediapipe.ConstantSidePacketCalculatorOptions.ext]: {
             packet {
-              string_value: "/Assets/mediapipe/modules/hand_landmark/hand_landmark_lite.tflite"
+              string_value: "mediapipe/modules/palm_detection/palm_detection_lite.tflite"
             }
           }
         }
@@ -34,7 +34,7 @@ node {
         options: {
           [mediapipe.ConstantSidePacketCalculatorOptions.ext]: {
             packet {
-              string_value: "/Assets/mediapipe/modules/hand_landmark/hand_landmark_full.tflite"
+              string_value: "mediapipe/modules/palm_detection/palm_detection_full.tflite"
             }
           }
         }

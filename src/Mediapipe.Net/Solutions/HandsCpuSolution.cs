@@ -3,7 +3,6 @@
 // MediaPipe.NET is licensed under the MIT License. See LICENSE for details.
 
 using System.Collections.Generic;
-using System.IO;
 using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Packets;
 using Mediapipe.Net.Framework.Protobuf;
@@ -38,11 +37,10 @@ namespace Mediapipe.Net.Solutions
         }
 
         public HandsCpuSolution(
-            string graphBasePath,
             bool staticImageMode = false,
             int maxNumHands = 2,
             int modelComplexity = 1
-        ) : base(Path.Combine(graphBasePath, graphPath), "image", outputs, toSidePackets(staticImageMode, maxNumHands, modelComplexity))
+        ) : base(graphPath, "image", outputs, toSidePackets(staticImageMode, maxNumHands, modelComplexity))
         {
         }
 

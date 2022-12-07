@@ -1,8 +1,10 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using CommunityToolkit.WinUI.Helpers;
@@ -11,9 +13,12 @@ using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Protobuf;
 using Mediapipe.Net.Interop;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Graphics.Imaging;
 using Windows.Media;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,8 +40,6 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
 
-        calculator = new WinuiHandsCpuSolution(Package.Current.InstalledLocation.Path + "\\Assets");
-
         Closed += MainWindow_Closed;
     }
 
@@ -50,8 +53,13 @@ public sealed partial class MainWindow : Window
 
     }
 
-    private async void myButton_Click(object sender, RoutedEventArgs e)
+    private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
+        var destinationFolder = await KnownFolders.PicturesLibrary
+        .CreateFolderAsync("Assets", CreationCollisionOption.OpenIfExists);
+
+
+        calculator = new WinuiHandsCpuSolution();
 
         //CameraHelper cameraHelper = new CameraHelper();
         var result = await cameraHelper.InitializeAndStartCaptureAsync();
@@ -100,7 +108,7 @@ public sealed partial class MainWindow : Window
 
                 //var matData = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
 
-                var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\hand.jpg");
+                var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\hand.png");
 
                 var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGB);
 
@@ -126,7 +134,8 @@ public sealed partial class MainWindow : Window
 
                     var result = HandDataFormatHelper.PredictResult(landmarks.ToList(), modelPath);
 
-                    this.DispatcherQueue.TryEnqueue(() =>
+
+                    this.DispatcherQueue.TryEnqueue(async() =>
                     {
                         HandResult.Text = result;
                     });

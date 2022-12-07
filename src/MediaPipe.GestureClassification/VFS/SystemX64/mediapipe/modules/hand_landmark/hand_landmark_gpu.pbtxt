@@ -1,8 +1,8 @@
 # MediaPipe graph to detect/predict hand landmarks on CPU.
 
-type: "HandLandmarkCpu"
+type: "HandLandmarkGpu"
 
-# CPU image. (ImageFrame)
+# GPU image. (GpuBuffer)
 input_stream: "IMAGE:image"
 # ROI (region of interest) within the given image where a palm/hand is located.
 # (NormalizedRect)
@@ -38,7 +38,7 @@ output_stream: "HANDEDNESS:handedness"
 # ratio, and therefore may result in potential letterboxing.
 node {
   calculator: "ImageToTensorCalculator"
-  input_stream: "IMAGE:image"
+  input_stream: "IMAGE_GPU:image"
   input_stream: "NORM_RECT:hand_rect"
   output_stream: "TENSORS:input_tensor"
   output_stream: "LETTERBOX_PADDING:letterbox_padding"
@@ -51,6 +51,7 @@ node {
         min: 0.0
         max: 1.0
       }
+      gpu_origin: TOP_LEFT
     }
   }
 }
@@ -62,7 +63,7 @@ node {
   output_side_packet: "MODEL:model"
 }
 
-# Runs a TensorFlow Lite model on CPU that takes an image tensor and outputs a
+# Runs a TensorFlow Lite model on GPU that takes an image tensor and outputs a
 # vector of tensors representing, for instance, detection boxes/keypoints and
 # scores.
 node {
@@ -70,13 +71,6 @@ node {
   input_side_packet: "MODEL:model"
   input_stream: "TENSORS:input_tensor"
   output_stream: "TENSORS:output_tensors"
-  options: {
-    [mediapipe.InferenceCalculatorOptions.ext] {
-      delegate {
-        xnnpack {}
-      }
-    }
-  }
 }
 
 # Splits a vector of tensors to multiple vectors according to the ranges
@@ -136,7 +130,7 @@ node {
   options: {
     [mediapipe.TensorsToClassificationCalculatorOptions.ext] {
       top_k: 1
-      label_map_path: "/Assets/mediapipe/modules/hand_landmark/handedness.txt"
+      label_map_path: "mediapipe/modules/hand_landmark/handedness.txt"
       binary_classification: true
     }
   }
