@@ -10,6 +10,7 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\hand.jpg" />
@@ -49,8 +50,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GestureClassification\GestureClassification.csproj" />
-    <ProjectReference Include="..\Mediapipe.Net\Mediapipe.Net.csproj" />
+    <ProjectReference Include="..\Mediapipe.Net.Interop\Mediapipe.Net.Interop.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\MLModel1.zip">

@@ -2,14 +2,9 @@
 // This file is part of MediaPipe.NET.
 // MediaPipe.NET is licensed under the MIT License. See LICENSE for details.
 
+using System.Diagnostics;
 using GestureClassification;
 using Mediapipe.Net.Framework.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
 
 namespace Mediapipe.Net.Examples.Hands
 {
@@ -40,7 +35,7 @@ namespace Mediapipe.Net.Examples.Hands
             }
         }
 
-        public static string PredictResult(List<NormalizedLandmark> landmarks)
+        public static string PredictResult(List<NormalizedLandmark> landmarks, string path = "")
         {
             if (landmarks.Count == 21)
             {
@@ -122,7 +117,7 @@ namespace Mediapipe.Net.Examples.Hands
                     Col62 = listDta[62],
                 };
 
-                var path = Package.Current.InstalledLocation.Path + $"\\Assets\\MLModel1.zip";
+
                 MLModel1.SetModelPath(path);
                 // Make a single prediction on the sample data and print results
                 var predictionResult = MLModel1.Predict(sampleData);

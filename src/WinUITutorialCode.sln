@@ -29,11 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RainDayForWASDK", "RainDayF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamepadController", "GamepadController\GamepadController.csproj", "{D6DC3054-45C1-4916-B579-9630DA2D9EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPipe.GestureClassification", "MediaPipe.GestureClassification\MediaPipe.GestureClassification.csproj", "{54BFFF43-7ED1-4E44-8049-C9652C3861C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaPipe.GestureClassification", "MediaPipe.GestureClassification\MediaPipe.GestureClassification.csproj", "{54BFFF43-7ED1-4E44-8049-C9652C3861C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediapipe.Net", "Mediapipe.Net\Mediapipe.Net.csproj", "{0F6D497C-44DE-4BAB-8F22-94122C74B96B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestureClassification", "GestureClassification\GestureClassification.csproj", "{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediapipe.Net.Interop", "Mediapipe.Net.Interop\Mediapipe.Net.Interop.csproj", "{4AAC2C44-EF85-40CB-84A5-F2842BC80132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -445,6 +447,26 @@ Global
 		{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}.Release|x64.Build.0 = Release|Any CPU
 		{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}.Release|x86.Build.0 = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|ARM.Build.0 = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|arm64.Build.0 = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|x64.Build.0 = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Debug|x86.Build.0 = Debug|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|ARM.Build.0 = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|arm64.ActiveCfg = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|arm64.Build.0 = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|x64.ActiveCfg = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|x64.Build.0 = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|x86.ActiveCfg = Release|Any CPU
+		{4AAC2C44-EF85-40CB-84A5-F2842BC80132}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

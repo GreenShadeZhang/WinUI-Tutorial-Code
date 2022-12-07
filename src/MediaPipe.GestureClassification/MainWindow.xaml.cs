@@ -3,20 +3,17 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using CommunityToolkit.WinUI.Helpers;
 using Mediapipe.Net.Examples.Hands;
 using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Protobuf;
-using Mediapipe.Net.Solutions;
+using Mediapipe.Net.Interop;
 using Microsoft.UI.Xaml;
 using Windows.ApplicationModel;
 using Windows.Graphics.Imaging;
 using Windows.Media;
-using Windows.Storage.Streams;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,13 +24,18 @@ namespace MediaPipe.GestureClassification;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    private static HandsCpuSolution? calculator;
+    private static WinuiHandsCpuSolution? calculator;
+
     private int frameCount = 0;
+
     readonly CameraHelper cameraHelper = new();
+
+    private readonly string modelPath = Package.Current.InstalledLocation.Path + $"\\Assets\\MLModel1.zip";
     public MainWindow()
     {
         this.InitializeComponent();
-        calculator = new HandsCpuSolution(Package.Current.InstalledLocation.Path);
+
+        calculator = new WinuiHandsCpuSolution(Package.Current.InstalledLocation.Path + "\\Assets");
 
         Closed += MainWindow_Closed;
     }
@@ -78,29 +80,29 @@ public sealed partial class MainWindow : Window
 
             if (softwareBitmap != null)
             {
-                if (softwareBitmap.BitmapPixelFormat != BitmapPixelFormat.Bgra8 ||
-                 softwareBitmap.BitmapAlphaMode == BitmapAlphaMode.Straight)
-                {
-                    softwareBitmap = SoftwareBitmap.Convert(
-                        softwareBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
-                }
+                //if (softwareBitmap.BitmapPixelFormat != BitmapPixelFormat.Bgra8 ||
+                // softwareBitmap.BitmapAlphaMode == BitmapAlphaMode.Straight)
+                //{
+                //    softwareBitmap = SoftwareBitmap.Convert(
+                //        softwareBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                //}
 
-                using IRandomAccessStream stream = new InMemoryRandomAccessStream();
+                //using IRandomAccessStream stream = new InMemoryRandomAccessStream();
 
-                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                //var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
 
-                // Set the software bitmap
-                encoder.SetSoftwareBitmap(softwareBitmap);
+                //// Set the software bitmap
+                //encoder.SetSoftwareBitmap(softwareBitmap);
 
-                await encoder.FlushAsync();
+                //await encoder.FlushAsync();
 
-                var image = new Bitmap(stream.AsStream());
+                //var image = new Bitmap(stream.AsStream());
 
                 //var matData = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
 
                 var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\hand.jpg");
 
-                var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGBA);
+                var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGB);
 
                 var dataMeta = mat2.Data;
 
@@ -112,7 +114,7 @@ public sealed partial class MainWindow : Window
 
                 var widthStep = (int)mat2.Step();
 
-                var imgframe = new ImageFrame(ImageFormat.Types.Format.Srgba, mat2.Width, mat2.Height, widthStep, data);
+                var imgframe = new ImageFrame(ImageFormat.Types.Format.Srgb, mat2.Width, mat2.Height, widthStep, data);
 
                 var handsOutput = calculator.Compute(imgframe);
 
@@ -122,7 +124,7 @@ public sealed partial class MainWindow : Window
 
                     Debug.WriteLine($"Got hands output with {landmarks.Count} landmarks" + $" at frame {frameCount}");
 
-                    var result = HandDataFormatHelper.PredictResult(landmarks.ToList());
+                    var result = HandDataFormatHelper.PredictResult(landmarks.ToList(), modelPath);
 
                     this.DispatcherQueue.TryEnqueue(() =>
                     {
