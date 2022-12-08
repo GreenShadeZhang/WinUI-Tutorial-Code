@@ -14,6 +14,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\hand.jpg" />
+    <Content Remove="Assets\HandsData\alldata.txt" />
+    <Content Remove="Assets\HandsData\back.txt" />
+    <Content Remove="Assets\HandsData\down.txt" />
+    <Content Remove="Assets\HandsData\forward.txt" />
+    <Content Remove="Assets\HandsData\land.txt" />
+    <Content Remove="Assets\HandsData\left.txt" />
+    <Content Remove="Assets\HandsData\README.md" />
+    <Content Remove="Assets\HandsData\right.txt" />
+    <Content Remove="Assets\HandsData\sample-code.text" />
+    <Content Remove="Assets\HandsData\stop.txt" />
+    <Content Remove="Assets\HandsData\up.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\MLModel1.zip" />
