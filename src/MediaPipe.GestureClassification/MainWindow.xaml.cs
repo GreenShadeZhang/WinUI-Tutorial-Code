@@ -42,6 +42,7 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
 
+        calculator = new HandsCpuSolution();
         Closed += MainWindow_Closed;
     }
 
@@ -57,12 +58,6 @@ public sealed partial class MainWindow : Window
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var destinationFolder = await KnownFolders.PicturesLibrary
-        .CreateFolderAsync("Assets", CreationCollisionOption.OpenIfExists);
-
-
-        calculator = new HandsCpuSolution();
-
         //CameraHelper cameraHelper = new CameraHelper();
         var result = await cameraHelper.InitializeAndStartCaptureAsync();
 
