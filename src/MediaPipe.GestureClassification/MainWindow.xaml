@@ -15,7 +15,7 @@
         VerticalAlignment="Center"
         Orientation="Vertical">
         <Button x:Name="StartButton" Click="StartButton_Click">开始按钮</Button>
-        <Image x:Name="VideoFrame" />
+        <Image x:Name="VideoFrame" Width="240" />
         <TextBlock x:Name="HandResult" FontSize="72" />
     </StackPanel>
 </Window>

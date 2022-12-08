@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using CommunityToolkit.WinUI.Helpers;
 using Mediapipe.Net.Examples.Hands;
 using Mediapipe.Net.Framework.Format;
@@ -14,6 +15,7 @@ using Mediapipe.Net.Framework.Protobuf;
 using Mediapipe.Net.Interop;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
+using OpenCvSharp.Extensions;
 using Windows.ApplicationModel;
 using Windows.Graphics.Imaging;
 using Windows.Media;
@@ -126,6 +128,16 @@ public sealed partial class MainWindow : Window
 
                 var handsOutput = calculator.Compute(imgframe);
 
+                Bitmap bitmap = BitmapConverter.ToBitmap(matData);
+
+                var ret = await BitmapToBitmapImage(bitmap);
+
+                if (ret.BitmapPixelFormat != BitmapPixelFormat.Bgra8 ||
+                        ret.BitmapAlphaMode == BitmapAlphaMode.Straight)
+                {
+                    ret = SoftwareBitmap.Convert(ret, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                }
+
                 if (handsOutput.MultiHandLandmarks != null)
                 {
                     var landmarks = handsOutput.MultiHandLandmarks[0].Landmark;
@@ -137,7 +149,13 @@ public sealed partial class MainWindow : Window
 
                     this.DispatcherQueue.TryEnqueue(async() =>
                     {
+                        var source = new SoftwareBitmapSource();
+
+                        await source.SetBitmapAsync(ret);
+
+
                         HandResult.Text = result;
+                        VideoFrame.Source = source;
                     });
                 }
                 else
@@ -151,5 +169,21 @@ public sealed partial class MainWindow : Window
 
         }
         frameCount++;
+    }
+    public async Task<SoftwareBitmap> BitmapToBitmapImage(System.Drawing.Bitmap bitmap)
+    {
+        MemoryStream ms = new MemoryStream();
+
+        bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+        ms.Seek(0, SeekOrigin.Begin);
+
+        // Create the decoder from the stream
+        BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
+
+        // Get the SoftwareBitmap representation of the file
+        var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+
+        return softwareBitmap;
     }
 }
