@@ -124,7 +124,8 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mediapipe.Net.Interop\Mediapipe.Net.Interop.csproj" />
+    <ProjectReference Include="..\GestureClassification\GestureClassification.csproj" />
+    <ProjectReference Include="..\Mediapipe.Net\Mediapipe.Net.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\hand.png">

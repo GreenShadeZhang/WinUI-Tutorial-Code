@@ -12,7 +12,7 @@ using CommunityToolkit.WinUI.Helpers;
 using Mediapipe.Net.Examples.Hands;
 using Mediapipe.Net.Framework.Format;
 using Mediapipe.Net.Framework.Protobuf;
-using Mediapipe.Net.Interop;
+using Mediapipe.Net.Solutions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using OpenCvSharp.Extensions;
@@ -31,7 +31,7 @@ namespace MediaPipe.GestureClassification;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    private static WinuiHandsCpuSolution? calculator;
+    private static HandsCpuSolution? calculator;
 
     private int frameCount = 0;
 
@@ -61,7 +61,7 @@ public sealed partial class MainWindow : Window
         .CreateFolderAsync("Assets", CreationCollisionOption.OpenIfExists);
 
 
-        calculator = new WinuiHandsCpuSolution();
+        calculator = new HandsCpuSolution();
 
         //CameraHelper cameraHelper = new CameraHelper();
         var result = await cameraHelper.InitializeAndStartCaptureAsync();
