@@ -2,6 +2,12 @@
 
 ### 主要是一些Windows App SDK（WinUI3） 学习记录教程的示例代码
 
+## ***MediaPipe.GestureClassification***
+
+这是一个结合MediaPipe和ML.NET实现的手部关键点检测和手势分类的项目。主要展示WASDK使用MediaPipe的做法。
+
+![Hand](/Images/HandTest.png)
+
 
 ## ***WinUI.UseLiteDB***
 
@@ -39,3 +45,7 @@
 - [Windows UI Library](https://github.com/microsoft/microsoft-ui-xaml)
 - [Win2D](https://github.com/microsoft/Win2D/tree/reunion_master)
 - [Learn WinUI 3.0](https://github.com/PacktPublishing/-Learn-WinUI-3.0)
+[MediaPipe](https://google.github.io/mediapipe/)
+[ML.NET](https://dotnet.microsoft.com/zh-cn/apps/machinelearning-ai/ml-dotnet)
+[hand-gesture-recognition-using-mediapipe](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe)
+[MediaPipe.NET](https://github.com/vignetteapp/MediaPipe.NET)
