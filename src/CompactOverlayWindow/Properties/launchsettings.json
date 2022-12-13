@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "CompactOverlayWindow (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "CompactOverlayWindow (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
