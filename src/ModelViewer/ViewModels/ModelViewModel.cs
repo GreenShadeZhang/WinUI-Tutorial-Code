@@ -34,7 +34,11 @@ public partial class ModelViewModel : ObservableObject
         private set;
         get;
     }
-
+    public DiffuseMaterial Material
+    {
+        private set;
+        get;
+    }
     [ObservableProperty]
     private bool showAxis = true;
 
@@ -50,6 +54,18 @@ public partial class ModelViewModel : ObservableObject
     public ModelViewModel(IEffectsManager effectsManager)
     {
         EffectsManager = effectsManager;
+        Material = new DiffuseMaterial()
+        {
+            EnableUnLit = false,
+            DiffuseMap = LoadTexture("紧闭眼.png")
+        };
+
+    }
+
+    private TextureModel LoadTexture(string file)
+    {
+        var packageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
+        return TextureModel.Create(packageFolder + @"\" + file);
     }
 
     [RelayCommand]
@@ -60,7 +76,7 @@ public partial class ModelViewModel : ObservableObject
         {
             return false;
         }
-        Root.Clear();
+        //Root.Clear();
         scene = null;
         ResetSettings();
         var syncContext = SynchronizationContext.Current;
@@ -129,6 +145,7 @@ public partial class ModelViewModel : ObservableObject
             {
                 if (node is MeshNode meshNode)
                 {
+                    meshNode.Material = Material;
                     meshNode.RenderWireframe = value;
                 }
             }
