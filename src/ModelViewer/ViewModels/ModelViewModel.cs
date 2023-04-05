@@ -145,7 +145,10 @@ public partial class ModelViewModel : ObservableObject
             {
                 if (node is MeshNode meshNode)
                 {
-                    meshNode.Material = Material;
+                     var transform1 = Matrix.RotationZ(90);
+                    var tr2 = meshNode.ModelMatrix * transform1;
+                     meshNode.ModelMatrix = tr2;
+                     meshNode.Material = Material;
                     meshNode.RenderWireframe = value;
                 }
             }
