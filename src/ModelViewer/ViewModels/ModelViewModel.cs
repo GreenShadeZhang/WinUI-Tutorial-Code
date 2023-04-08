@@ -145,10 +145,15 @@ public partial class ModelViewModel : ObservableObject
             {
                 if (node is MeshNode meshNode)
                 {
-                     var transform1 = Matrix.RotationZ(90);
-                    var tr2 = meshNode.ModelMatrix * transform1;
-                     meshNode.ModelMatrix = tr2;
-                     meshNode.Material = Material;
+                    var list = BoundingBox.GetCorners();
+                    var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+                    var tr2 = meshNode.ModelMatrix * translationMatrix; 
+                    var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
+                    //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
+                    //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
+                    var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+                    meshNode.ModelMatrix = tr4;
+                    meshNode.Material = Material;
                     meshNode.RenderWireframe = value;
                 }
             }
