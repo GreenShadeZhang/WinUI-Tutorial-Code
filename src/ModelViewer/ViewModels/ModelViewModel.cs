@@ -126,10 +126,10 @@ public partial class ModelViewModel : ObservableObject
 
     private void FocusCameraToScene()
     {
-        var maxWidth = Math.Max(Math.Max(boundingBox.Width, boundingBox.Height), boundingBox.Depth);
-        var pos = boundingBox.Center + new Vector3(0, 0, maxWidth);
+        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth);
+        var pos = BoundingBox.Center + new Vector3(0, 0, maxWidth);
         Camera.Position = pos;
-        Camera.LookDirection = boundingBox.Center - pos;
+        Camera.LookDirection = BoundingBox.Center - pos;
         Camera.UpDirection = Vector3.UnitY;
         if (Camera is OrthographicCamera orthCam)
         {
@@ -164,9 +164,9 @@ public partial class ModelViewModel : ObservableObject
     {
         float multiplier = 1.25f;
         var builder = new LineBuilder();
-        builder.AddLine(ModelCentroid - new Vector3(boundingBox.Width / 2 * multiplier, 0, 0), ModelCentroid + new Vector3(boundingBox.Width / 2 * multiplier, 0, 0));
-        builder.AddLine(ModelCentroid - new Vector3(0, boundingBox.Height / 2 * multiplier, 0), ModelCentroid + new Vector3(0, boundingBox.Height / 2 * multiplier, 0));
-        builder.AddLine(ModelCentroid - new Vector3(0, 0, boundingBox.Depth / 2 * multiplier), ModelCentroid + new Vector3(0, 0, boundingBox.Depth / 2 * multiplier));
+        builder.AddLine(ModelCentroid - new Vector3(BoundingBox.Width / 2 * multiplier, 0, 0), ModelCentroid + new Vector3(boundingBox.Width / 2 * multiplier, 0, 0));
+        builder.AddLine(ModelCentroid - new Vector3(0, BoundingBox.Height / 2 * multiplier, 0), ModelCentroid + new Vector3(0, boundingBox.Height / 2 * multiplier, 0));
+        builder.AddLine(ModelCentroid - new Vector3(0, 0, BoundingBox.Depth / 2 * multiplier), ModelCentroid + new Vector3(0, 0, boundingBox.Depth / 2 * multiplier));
         Axis = builder.ToLineGeometry3D();
         Axis.Colors = new Color4Collection();
         Axis.Colors.Resize(Axis.Positions.Count, true);
