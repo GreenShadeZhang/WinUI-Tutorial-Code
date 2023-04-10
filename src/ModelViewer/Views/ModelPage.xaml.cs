@@ -8,14 +8,14 @@ namespace ModelViewer.Views;
 
 public sealed partial class ModelPage : Page
 {
-    public ModelViewModel MainVM
+    public ModelViewModel ViewModel
     {
         get;
     }
     public ModelPage()
     {
         InitializeComponent();
-        DataContext = MainVM = App.GetService<ModelViewModel>();
+        DataContext = ViewModel = App.GetService<ModelViewModel>();
         viewport.OnMouse3DDown += Viewport_OnMouse3DDown;
     }
 

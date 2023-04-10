@@ -25,8 +25,8 @@
                     <AppBarButton.Flyout>
                         <Flyout>
                             <StackPanel Orientation="Vertical">
-                                <CheckBox Content="Show Wireframe" IsChecked="{x:Bind MainVM.ShowWireframe, Mode=TwoWay}" />
-                                <CheckBox Content="Show Axis" IsChecked="{x:Bind MainVM.ShowAxis, Mode=TwoWay}" />
+                                <CheckBox Content="Show Wireframe" IsChecked="{x:Bind ViewModel.ShowWireframe, Mode=TwoWay}" />
+                                <CheckBox Content="Show Axis" IsChecked="{x:Bind ViewModel.ShowAxis, Mode=TwoWay}" />
                             </StackPanel>
                         </Flyout>
                     </AppBarButton.Flyout>
