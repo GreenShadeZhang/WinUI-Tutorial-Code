@@ -15,6 +15,20 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\ElectronBotModel\Base.obj" />
+    <None Remove="Assets\ElectronBotModel\Body1.obj" />
+    <None Remove="Assets\ElectronBotModel\Body2.obj" />
+    <None Remove="Assets\ElectronBotModel\Face.obj" />
+    <None Remove="Assets\ElectronBotModel\Head1.obj" />
+    <None Remove="Assets\ElectronBotModel\Head2.obj" />
+    <None Remove="Assets\ElectronBotModel\Head3.obj" />
+    <None Remove="Assets\ElectronBotModel\Head3_bak.obj" />
+    <None Remove="Assets\ElectronBotModel\LeftArm1.obj" />
+    <None Remove="Assets\ElectronBotModel\LeftArm2.obj" />
+    <None Remove="Assets\ElectronBotModel\LeftShoulder.obj" />
+    <None Remove="Assets\ElectronBotModel\RightArm1.obj" />
+    <None Remove="Assets\ElectronBotModel\RightArm2.obj" />
+    <None Remove="Assets\ElectronBotModel\RightShoulder.obj" />
     <None Remove="紧闭眼.png" />
   </ItemGroup>
   <ItemGroup>

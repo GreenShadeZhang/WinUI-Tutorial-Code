@@ -7,12 +7,14 @@ using HelixToolkit.SharpDX.Core;
 using HelixToolkit.SharpDX.Core.Assimp;
 using HelixToolkit.SharpDX.Core.Model.Scene;
 using HelixToolkit.WinUI;
+using ModelViewer.Contracts.ViewModels;
 using ModelViewer.Services;
 using SharpDX;
+using Windows.ApplicationModel;
 
 namespace ModelViewer.ViewModels;
 
-public partial class ModelViewModel : ObservableObject
+public partial class ModelViewModel : ObservableObject, INavigationAware
 {
     public IEffectsManager EffectsManager
     {
@@ -139,22 +141,86 @@ public partial class ModelViewModel : ObservableObject
 
     partial void OnShowWireframeChanged(bool value)
     {
-        if (scene != null && scene.Root != null)
+        //if (scene != null && scene.Root != null)
+        //{
+        //    foreach (var node in scene.Root.Traverse())
+        //    {
+        //        if (node is MeshNode meshNode)
+        //        {
+        //            var list = BoundingBox.GetCorners();
+        //            var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+        //            var tr2 = meshNode.ModelMatrix * translationMatrix;
+        //            var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
+        //            //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
+        //            //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
+        //            var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+        //            meshNode.ModelMatrix = tr4;
+        //            meshNode.Material = Material;
+        //            meshNode.RenderWireframe = value;
+        //        }
+        //    }
+        //}
+
+
+        var list = new List<string>()
         {
-            foreach (var node in scene.Root.Traverse())
+            "Base.obj",
+            "Body1.obj",
+            "Body2.obj",
+            "Face.obj",
+            "Head1.obj",
+            "Head2.obj",
+            "Head3.obj",
+            "LeftArm1.obj",
+            "LeftArm2.obj",
+            "LeftShoulder.obj",
+            "RightArm1.obj",
+            "RightArm2.obj",
+            "RightShoulder.obj"
+        };
+
+        foreach (var modelName in list)
+        {
+            var modelPath = Package.Current.InstalledLocation.Path + $"\\Assets\\ElectronBotModel\\{modelName}";
+
+            var importer = new Importer();
+            var newScene = importer.Load(modelPath);
+            if (newScene != null)
             {
-                if (node is MeshNode meshNode)
+                /// Pre-attach and calculate all scene info in a separate task.
+                newScene.Root.Attach(EffectsManager);
+                newScene.Root.UpdateAllTransformMatrix();
+                if (newScene.Root.TryGetBound(out var bound))
                 {
-                    var list = BoundingBox.GetCorners();
-                    var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
-                    var tr2 = meshNode.ModelMatrix * translationMatrix; 
-                    var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
-                    //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
-                    //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
-                    var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
-                    meshNode.ModelMatrix = tr4;
-                    meshNode.Material = Material;
-                    meshNode.RenderWireframe = value;
+                    /// Must use UI thread to set value back.
+                    BoundingBox = bound;
+                }
+                if (newScene.Root.TryGetCentroid(out var centroid))
+                {
+                    /// Must use UI thread to set value back.
+                    ModelCentroid = centroid;
+                }
+                foreach (var n in newScene.Root.Traverse())
+                {
+                    n.Tag = new AttachedNodeViewModel(n);
+                }
+
+                Root.AddNode(newScene.Root);
+                UpdateAxis();
+                FocusCameraToScene();
+
+                if (modelName == "Head3.obj")
+                {
+                    if (newScene != null && newScene.Root != null)
+                    {
+                        foreach (var node in newScene.Root.Traverse())
+                        {
+                            if (node is MeshNode meshNode)
+                            {
+                                meshNode.Material = Material;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -174,6 +240,64 @@ public partial class ModelViewModel : ObservableObject
         Axis.Colors[2] = Axis.Colors[3] = Color.Green;
         Axis.Colors[4] = Axis.Colors[5] = Color.Blue;
         OnPropertyChanged(nameof(Axis));
+    }
+
+    public void OnNavigatedTo(object parameter)
+    {
+        var list = new List<string>()
+        {
+            "Base.obj",
+            "Body1.obj",
+            "Body2.obj",
+            "Face.obj",
+            "Head1.obj",
+            "Head2.obj",
+            "Head3.obj",
+            "LeftArm1.obj",
+            "LeftArm2.obj",
+            "LeftShoulder.obj",
+            "RightArm1.obj",
+            "RightArm2.obj",
+            "RightShoulder.obj"
+        };
+
+        foreach (var modelName in list)
+        {
+            var modelPath = Package.Current.InstalledLocation.Path + $"\\Assets\\ElectronBotModel\\{modelName}";
+
+            var importer = new Importer();
+            var newScene = importer.Load(modelPath);
+            if (newScene != null)
+            {
+                /// Pre-attach and calculate all scene info in a separate task.
+                newScene.Root.Attach(EffectsManager);
+                newScene.Root.UpdateAllTransformMatrix();
+                if (newScene.Root.TryGetBound(out var bound))
+                {
+                    /// Must use UI thread to set value back.
+                    //BoundingBox = bound;
+                }
+                if (newScene.Root.TryGetCentroid(out var centroid))
+                {
+                    /// Must use UI thread to set value back.
+                    //ModelCentroid = centroid;
+                }
+                foreach (var n in newScene.Root.Traverse())
+                {
+                    n.Tag = new AttachedNodeViewModel(n);
+                }
+
+                //Root.AddNode(newScene.Root);
+                UpdateAxis();
+                FocusCameraToScene();
+            }
+        }
+
+    }
+
+    public void OnNavigatedFrom()
+    {
+
     }
 }
 
