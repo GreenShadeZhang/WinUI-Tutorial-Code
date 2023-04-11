@@ -53,6 +53,18 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
 
     private HelixToolkitScene scene = null;
 
+    public List<BoundingBox> BoundingBoxList
+    {
+        get;
+        set;
+    } = new();
+
+    public List<HelixToolkitScene> SceneList
+    {
+        get;
+        set;
+    } = new();
+
     public ModelViewModel(IEffectsManager effectsManager)
     {
         EffectsManager = effectsManager;
@@ -143,22 +155,41 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
     {
         if (scene != null && scene.Root != null)
         {
-            foreach (var node in scene.Root.Traverse())
+            foreach (var sceneItem in SceneList)
             {
-                if (node is MeshNode meshNode)
+                foreach (var node in sceneItem.Root.Traverse())
                 {
-                    var list = BoundingBox.GetCorners();
-                    var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
-                    var tr2 = meshNode.ModelMatrix * translationMatrix;
-                    var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
-                    //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
-                    //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
-                    var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
-                    meshNode.ModelMatrix = tr4;
-                    meshNode.Material = Material;
-                    meshNode.RenderWireframe = value;
+                    if (node is MeshNode meshNode)
+                    {
+                        var list = BoundingBox.GetCorners();
+                        var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+                        var tr2 = meshNode.ModelMatrix * translationMatrix;
+                        var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
+                        //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
+                        //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
+                        var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+                        meshNode.ModelMatrix = tr4;
+                        meshNode.Material = Material;
+                        meshNode.RenderWireframe = value;
+                    }
                 }
             }
+            //foreach (var node in scene.Root.Traverse())
+            //{
+            //    if (node is MeshNode meshNode)
+            //    {
+            //        var list = BoundingBox.GetCorners();
+            //        var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+            //        var tr2 = meshNode.ModelMatrix * translationMatrix;
+            //        var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-30));
+            //        //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
+            //        //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
+            //        var tr4 = tr3 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+            //        meshNode.ModelMatrix = tr4;
+            //        meshNode.Material = Material;
+            //        meshNode.RenderWireframe = value;
+            //    }
+            //}
         }
 
     }
@@ -239,6 +270,8 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                     {
                         /// Must use UI thread to set value back.
                         BoundingBox = bound;
+
+                        BoundingBoxList.Add(bound);
                     }
                     if (newScene.Root.TryGetCentroid(out var centroid))
                     {
@@ -246,6 +279,27 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                         ModelCentroid = centroid;
                     }
                     scene = newScene;
+
+                    SceneList.Add(newScene);
+                }
+
+                if (modelName == "RightArm2.obj")
+                {
+                    if (newScene.Root.TryGetBound(out var bound))
+                    {
+                        /// Must use UI thread to set value back.
+                        //BoundingBox = bound;
+
+                        BoundingBoxList.Add(bound);
+                    }
+                    if (newScene.Root.TryGetCentroid(out var centroid))
+                    {
+                        /// Must use UI thread to set value back.
+                        ModelCentroid = centroid;
+                    }
+                    //scene = newScene;
+
+                    SceneList.Add(newScene);
                 }
             }
         }
