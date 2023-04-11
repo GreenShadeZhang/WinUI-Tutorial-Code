@@ -7,6 +7,7 @@ using HelixToolkit.SharpDX.Core;
 using HelixToolkit.SharpDX.Core.Assimp;
 using HelixToolkit.SharpDX.Core.Model.Scene;
 using HelixToolkit.WinUI;
+using Microsoft.UI.Xaml;
 using ModelViewer.Contracts.ViewModels;
 using ModelViewer.Services;
 using SharpDX;
@@ -20,6 +21,8 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
     {
         get;
     }
+
+    private readonly DispatcherTimer DispatcherTimer = new();
 
     public Camera Camera
     {
@@ -68,12 +71,45 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
     public ModelViewModel(IEffectsManager effectsManager)
     {
         EffectsManager = effectsManager;
+        DispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
+
+        DispatcherTimer.Tick += ModelAcitonDispatcherTimer_Tick;
         Material = new DiffuseMaterial()
         {
             EnableUnLit = false,
             DiffuseMap = LoadTexture("紧闭眼.png")
         };
 
+    }
+
+    private void ModelAcitonDispatcherTimer_Tick(object? sender, object e)
+    {
+        try
+        {
+            foreach (var sceneItem in SceneList)
+            {
+                foreach (var node in sceneItem.Root.Traverse())
+                {
+                    if (node is MeshNode meshNode)
+                    {
+                        var list = BoundingBox.GetCorners();
+                        var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+                        var tr2 = meshNode.ModelMatrix * translationMatrix;
+                        var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
+                        var tr4 = tr3 * Matrix.RotationX(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
+                        //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
+                        //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
+                        var tr5 = tr4 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+                        meshNode.ModelMatrix = tr5;
+                    }
+                }
+            }
+        }
+        catch
+        {
+
+        }
+       
     }
 
     private TextureModel LoadTexture(string file)
@@ -304,12 +340,12 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
             }
         }
 
-
+        DispatcherTimer.Start();
     }
 
     public void OnNavigatedFrom()
     {
-
+        DispatcherTimer.Stop();
     }
 }
 
