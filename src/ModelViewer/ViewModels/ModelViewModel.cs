@@ -93,13 +93,20 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                     if (node is MeshNode meshNode)
                     {
                         var list = BoundingBox.GetCorners();
-                        var translationMatrix = Matrix.Translation(-list[1].X, -list[1].Y, -list[1].Z);
+
+                        var average = new SharpDX.Vector3(
+                            (list[1].X + list[5].X) / 2f,
+                            ((list[1].Y + list[5].Y) / 2f)-8f,
+                            (list[1].Z + list[5].Z) / 2f
+                        );
+
+                        var translationMatrix = Matrix.Translation(-average.X, -average.Y, -average.Z);
                         var tr2 = meshNode.ModelMatrix * translationMatrix;
                         var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
                         var tr4 = tr3 * Matrix.RotationX(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
                         //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
                         //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
-                        var tr5 = tr4 * Matrix.Translation(list[1].X, list[1].Y, list[1].Z);
+                        var tr5 = tr4 * Matrix.Translation(average.X, average.Y, average.Z);
                         meshNode.ModelMatrix = tr5;
                     }
                 }
