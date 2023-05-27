@@ -56,6 +56,9 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
 
     private HelixToolkitScene scene = null;
 
+
+    private Vector3 _average;
+
     public List<BoundingBox> BoundingBoxList
     {
         get;
@@ -183,7 +186,7 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
 
     private void FocusCameraToScene()
     {
-        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth);
+        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth)+80;
         var pos = BoundingBox.Center + new Vector3(0, 0, maxWidth);
         Camera.Position = pos;
         Camera.LookDirection = BoundingBox.Center - pos;
@@ -312,14 +315,14 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                     if (newScene.Root.TryGetBound(out var bound))
                     {
                         /// Must use UI thread to set value back.
-                        BoundingBox = bound;
+                        //BoundingBox = bound;
 
                         BoundingBoxList.Add(bound);
                     }
                     if (newScene.Root.TryGetCentroid(out var centroid))
                     {
                         /// Must use UI thread to set value back.
-                        ModelCentroid = centroid;
+                        //ModelCentroid = centroid;
                     }
                     scene = newScene;
 
@@ -338,11 +341,50 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                     if (newScene.Root.TryGetCentroid(out var centroid))
                     {
                         /// Must use UI thread to set value back.
-                        ModelCentroid = centroid;
+                        //ModelCentroid = centroid;
                     }
                     //scene = newScene;
 
                     SceneList.Add(newScene);
+                }
+
+                if (modelName == "RightShoulder.obj")
+                {
+                    if (newScene.Root.TryGetBound(out var bound))
+                    {
+                        /// Must use UI thread to set value back.
+                        BoundingBox = bound;
+
+                        BoundingBoxList.Add(bound);
+                    }
+                    if (newScene.Root.TryGetCentroid(out var centroid))
+                    {
+                        /// Must use UI thread to set value back.
+                        //ModelCentroid = centroid;
+                    }
+                    //scene = newScene;
+
+                    SceneList.Add(newScene);
+                }
+
+
+                if (modelName == "Body2.obj")
+                {
+                    if (newScene.Root.TryGetBound(out var bound))
+                    {
+                        /// Must use UI thread to set value back.
+                        //BoundingBox = bound;
+
+                       // BoundingBoxList.Add(bound);
+                    }
+                    if (newScene.Root.TryGetCentroid(out var centroid))
+                    {
+                        /// Must use UI thread to set value back.
+                        ModelCentroid = centroid;
+                    }
+                    //scene = newScene;
+
+                    //SceneList.Add(newScene);
                 }
             }
         }
