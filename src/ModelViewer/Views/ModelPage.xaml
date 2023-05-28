@@ -39,18 +39,18 @@
                 BackgroundColor="Transparent"
                 Camera="{Binding Camera}"
                 EffectsManager="{Binding EffectsManager}"
-                FXAALevel="Medium"
+                FXAALevel="High"
                 FixedRotationPoint="{Binding ModelCentroid}"
                 FixedRotationPointEnabled="True">
                 <hx:DirectionalLight3D Direction="{Binding Camera.LookDirection}" Color="White" />
                 <hx:Element3DPresenter Content="{Binding BodyModel}" />
                 <hx:Element3DPresenter Content="{Binding RightArmModel}" />
-                <hx:TopMostGroup3D IsHitTestVisible="False">
+                <!--<hx:TopMostGroup3D IsHitTestVisible="False">
                     <hx:LineGeometryModel3D
                         Geometry="{Binding Axis}"
                         IsRendering="{Binding ShowAxis, Mode=OneWay}"
                         Color="White" />
-                </hx:TopMostGroup3D>
+                </hx:TopMostGroup3D>-->
                 <hx:PostEffectMeshBorderHighlight EffectName="highlight" />
             </hx:Viewport3DX>
             <ProgressRing IsActive="{Binding LoadModelCommand.IsRunning, Mode=OneWay}" />
