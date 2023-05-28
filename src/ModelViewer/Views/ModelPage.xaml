@@ -43,7 +43,8 @@
                 FixedRotationPoint="{Binding ModelCentroid}"
                 FixedRotationPointEnabled="True">
                 <hx:DirectionalLight3D Direction="{Binding Camera.LookDirection}" Color="White" />
-                <hx:Element3DPresenter Content="{Binding Root}" />
+                <hx:Element3DPresenter Content="{Binding BodyModel}" />
+                <hx:Element3DPresenter Content="{Binding RightArmModel}" />
                 <hx:TopMostGroup3D IsHitTestVisible="False">
                     <hx:LineGeometryModel3D
                         Geometry="{Binding Axis}"

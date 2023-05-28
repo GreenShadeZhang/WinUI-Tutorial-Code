@@ -29,7 +29,32 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
         get;
     } = new OrthographicCamera() { NearPlaneDistance = 1e-2, FarPlaneDistance = 1e4 };
 
-    public SceneNodeGroupModel3D Root
+    //public SceneNodeGroupModel3D Root
+    //{
+    //    get;
+    //} = new SceneNodeGroupModel3D();
+
+    public SceneNodeGroupModel3D BodyModel
+    {
+        get;
+    } = new SceneNodeGroupModel3D();
+
+    public SceneNodeGroupModel3D LeftArmModel
+    {
+        get;
+    } = new SceneNodeGroupModel3D();
+
+    public SceneNodeGroupModel3D RightArmModel
+    {
+        get;
+    } = new SceneNodeGroupModel3D();
+
+    public SceneNodeGroupModel3D HeadModel
+    {
+        get;
+    } = new SceneNodeGroupModel3D();
+
+    public SceneNodeGroupModel3D BaseModel
     {
         get;
     } = new SceneNodeGroupModel3D();
@@ -98,14 +123,14 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
             );
 
             var translationMatrix = Matrix.Translation(-average.X, -average.Y, -average.Z);
-            var tr2 = Root.HxTransform3D * translationMatrix;
+            var tr2 = RightArmModel.HxTransform3D * translationMatrix;
             var tr3 = tr2 * Matrix.RotationZ(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
             var tr4 = tr3 * Matrix.RotationX(MathUtil.DegreesToRadians(-(DateTime.Now.Second)));
             //var tr3 = tr2 * Matrix.RotationZ(30.0f * (float)Math.PI / 180.0f);
             //var tr3 = tr2 * Matrix.RotationAxis(new Vector3(0, 0, 1), MathUtil.DegreesToRadians(30));
             var tr5 = tr4 * Matrix.Translation(average.X, average.Y, average.Z);
 
-            Root.HxTransform3D = tr5;
+            RightArmModel.HxTransform3D = tr5;
             //foreach (var sceneItem in SceneList)
             //{
             //    foreach (var node in sceneItem.Root.Traverse())
@@ -188,7 +213,7 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
             scene = result.Result;
             if (result.IsCompleted && result.Result != null)
             {
-                Root.AddNode(result.Result.Root);
+                BodyModel.AddNode(result.Result.Root);
                 UpdateAxis();
                 FocusCameraToScene();
             }
@@ -276,24 +301,41 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
     public void OnNavigatedTo(object parameter)
     {
 
-        var list = new List<string>()
+        var body = new List<string>()
         {
-            "Base.obj",
             "Body1.obj",
             "Body2.obj",
+        };
+
+        var Head = new List<string>()
+        {
             "Face.obj",
             "Head1.obj",
             "Head2.obj",
             "Head3.obj",
+        };
+
+        var leftArm = new List<string>()
+        {
             "LeftArm1.obj",
             "LeftArm2.obj",
             "LeftShoulder.obj",
+        };
+
+        var rightArm = new List<string>()
+        {
             "RightArm1.obj",
             "RightArm2.obj",
             "RightShoulder.obj"
         };
 
-        foreach (var modelName in list)
+
+        var baseBody = new List<string>()
+        {
+            "Base.obj",
+        };
+
+        foreach (var modelName in body)
         {
             var modelPath = Package.Current.InstalledLocation.Path + $"\\Assets\\ElectronBotModel\\{modelName}";
 
@@ -309,7 +351,7 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
                     n.Tag = new AttachedNodeViewModel(n);
                 }
 
-                Root.AddNode(newScene.Root);
+                BodyModel.AddNode(newScene.Root);
                 UpdateAxis();
                 FocusCameraToScene();
 
@@ -403,6 +445,52 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
 
                     //SceneList.Add(newScene);
                 }
+            }
+        }
+
+        foreach (var modelName in rightArm)
+        {
+            var modelPath = Package.Current.InstalledLocation.Path + $"\\Assets\\ElectronBotModel\\{modelName}";
+
+            var importer = new Importer();
+            var newScene = importer.Load(modelPath);
+            if (newScene != null)
+            {
+                /// Pre-attach and calculate all scene info in a separate task.
+                newScene.Root.Attach(EffectsManager);
+                newScene.Root.UpdateAllTransformMatrix();
+                foreach (var n in newScene.Root.Traverse())
+                {
+                    n.Tag = new AttachedNodeViewModel(n);
+                }
+
+                RightArmModel.AddNode(newScene.Root);
+                UpdateAxis();
+                FocusCameraToScene();
+
+                if (newScene.Root.TryGetBound(out var bound))
+                {
+                    /// Must use UI thread to set value back.
+                    if (modelName == "RightShoulder.obj")
+                    {
+                        BoundingBox = bound;
+                    }
+
+                    BoundingBoxList.Add(bound);
+                }
+                if (newScene.Root.TryGetCentroid(out var centroid))
+                {
+                    /// Must use UI thread to set value back.
+                    ///
+                    if (modelName == "RightShoulder.obj")
+                    {
+                        ModelCentroid = centroid;
+                    }
+                }
+                scene = newScene;
+
+                SceneList.Add(newScene);
+
             }
         }
 
