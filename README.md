@@ -42,6 +42,9 @@
 - [春风十里不如你，全新Windows UI 3(WinUI 3) 的第一个实现Project Reunion 0.5](https://www.cnblogs.com/craigtaylor/p/14673459.html)
 - [WinUI 3 Preview 3 发布了，再一次试试它的性能](https://www.cnblogs.com/dino623/p/test_winui3_preview3_performance.html)
 
+- [WinUI（WASDK）使用MediaPipe检查手部关键点并通过ML.NET进行手势分类 ](https://www.cnblogs.com/GreenShade/p/16967870.html)
+- [WinUI（WASDK）项目实践——优雅的开发上位机应用（新）](https://www.cnblogs.com/GreenShade/p/16654134.html)
+
 ## 推荐项目仓库
 - [Windows App SDK - Calling all Windows developers!](https://github.com/microsoft/WindowsAppSDK)
 - [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/winui)
