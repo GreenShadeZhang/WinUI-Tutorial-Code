@@ -28,9 +28,13 @@
 
 移植的一个uwp版本的雨滴效果，uwp版本的是移植一个js库，主要是准备用在自己的项目里做效果。
 
-![RainDayForWASDK](/Images/RainDayForWASDK.png)
+## ***ModelViewer***
 
-[原项目地址-RainDayForUAP](https://github.com/Neilxzn/RainDayForUAP)
+一个采用HelixToolkit社区库加载模型的示例，包括模型的加载和模型的旋转移动。
+
+![ModelViewer](/Images/ModelViewer.png)
+
+[HelixToolkit项目源码地址](https://github.com/helix-toolkit/helix-toolkit)
 
 ## 推荐阅读博客
 - [Windows 应用 SDK](https://docs.microsoft.com/zh-CN/windows/apps/windows-app-sdk/)
@@ -49,3 +53,8 @@
 - [ML.NET](https://dotnet.microsoft.com/zh-cn/apps/machinelearning-ai/ml-dotnet)
 - [hand-gesture-recognition-using-mediapipe](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe)
 - [MediaPipe.NET](https://github.com/vignetteapp/MediaPipe.NET)
+
+- [HelixToolkit项目源码地址](https://github.com/helix-toolkit/helix-toolkit)
+
+- [电子脑壳——一个winui编写的上位机软件](https://github.com/maker-community/ElectronBot.DotNet)
+
