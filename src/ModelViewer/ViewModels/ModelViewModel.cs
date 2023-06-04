@@ -228,7 +228,7 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
 
     private void FocusCameraToScene()
     {
-        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth)+80;
+        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth)+280;
         var pos = BoundingBox.Center + new Vector3(0, 0, maxWidth);
         Camera.Position = pos;
         Camera.LookDirection = BoundingBox.Center - pos;
