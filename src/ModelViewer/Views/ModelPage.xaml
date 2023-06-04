@@ -41,7 +41,9 @@
                 EffectsManager="{Binding EffectsManager}"
                 FXAALevel="High"
                 FixedRotationPoint="{Binding ModelCentroid}"
-                FixedRotationPointEnabled="True">
+                FixedRotationPointEnabled="True"
+                ManipulationMode="All"
+                ShowCoordinateSystem="True">
                 <hx:DirectionalLight3D Direction="{Binding Camera.LookDirection}" Color="White" />
                 <hx:Element3DPresenter Content="{Binding BodyModel}" />
                 <hx:Element3DPresenter Content="{Binding RightArmModel}" />
