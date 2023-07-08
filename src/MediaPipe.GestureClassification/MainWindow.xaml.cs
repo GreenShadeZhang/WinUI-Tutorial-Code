@@ -58,18 +58,71 @@ public sealed partial class MainWindow : Window
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        //CameraHelper cameraHelper = new CameraHelper();
-        var result = await cameraHelper.InitializeAndStartCaptureAsync();
+        ////CameraHelper cameraHelper = new CameraHelper();
+        //var result = await cameraHelper.InitializeAndStartCaptureAsync();
 
-        if (result == CameraHelperResult.Success)
+        //if (result == CameraHelperResult.Success)
+        //{
+        //    // Subscribe to get frames as they arrive
+        //    cameraHelper.FrameArrived += CameraHelper_FrameArrived;
+        //}
+        //else
+        //{
+        //    // Get error information
+        //    var errorMessage = result.ToString();
+        //}
+
+        var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\hand.png");
+
+        var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGB);
+
+        var dataMeta = mat2.Data;
+
+        var length = mat2.Width * mat2.Height * mat2.Channels();
+
+        var data = new byte[length];
+
+        Marshal.Copy(dataMeta, data, 0, length);
+
+        var widthStep = (int)mat2.Step();
+
+        var imgframe = new ImageFrame(ImageFormat.Types.Format.Srgb, mat2.Width, mat2.Height, widthStep, data);
+
+        var handsOutput = calculator.Compute(imgframe);
+
+        Bitmap bitmap = BitmapConverter.ToBitmap(matData);
+
+        var ret = await BitmapToBitmapImage(bitmap);
+
+        if (ret.BitmapPixelFormat != BitmapPixelFormat.Bgra8 ||
+            ret.BitmapAlphaMode == BitmapAlphaMode.Straight)
         {
-            // Subscribe to get frames as they arrive
-            cameraHelper.FrameArrived += CameraHelper_FrameArrived;
+            ret = SoftwareBitmap.Convert(ret, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+        }
+
+        if (handsOutput.MultiHandLandmarks != null)
+        {
+            var landmarks = handsOutput.MultiHandLandmarks[0].Landmark;
+
+            Debug.WriteLine($"Got hands output with {landmarks.Count} landmarks" + $" at frame {frameCount}");
+
+            var result = HandDataFormatHelper.PredictResult(landmarks.ToList(), modelPath);
+
+
+            this.DispatcherQueue.TryEnqueue(async () =>
+            {
+                var source = new SoftwareBitmapSource();
+
+                await source.SetBitmapAsync(ret);
+
+
+                HandResult.Text = result;
+                VideoFrame.Source = source;
+            });
         }
         else
         {
-            // Get error information
-            var errorMessage = result.ToString();
+            Debug.WriteLine("No hand landmarks");
         }
     }
 

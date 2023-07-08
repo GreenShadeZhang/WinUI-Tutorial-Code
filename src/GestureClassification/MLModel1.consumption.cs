@@ -481,7 +481,6 @@ namespace GestureClassification
 
             [ColumnName(@"Score")]
             public float[] Score { get; set; }
-
         }
 
         #endregion
