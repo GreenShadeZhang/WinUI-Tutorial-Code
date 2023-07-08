@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MediaPipe.PoseDetection (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MediaPipe.PoseDetection (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
