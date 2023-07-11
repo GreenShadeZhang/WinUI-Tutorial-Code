@@ -3,17 +3,33 @@
     x:Class="MediaPipe.PoseDetection.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:MediaPipe.PoseDetection"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Button x:Name="StartButton" Click="StartButton_Click">开始按钮</Button>
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Vertical">
-        <Button x:Name="StartButton" Click="StartButton_Click">开始按钮</Button>
-        <Image x:Name="VideoFrame" Width="240" />
-        <TextBlock x:Name="HandResult" FontSize="72" />
-    </StackPanel>
+                <!--<Image x:Name="VideoFrame" Width="240" />
+        <TextBlock x:Name="HandResult" FontSize="72" />-->
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <canvas:CanvasControl
+                    x:Name="CanvasControl1"
+                    CreateResources="Canvas_CreateResources"
+                    Draw="CanvasControl_Draw" />
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+
 </Window>

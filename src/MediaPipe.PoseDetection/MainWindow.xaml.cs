@@ -23,6 +23,9 @@ using Windows.Graphics.Imaging;
 using Mediapipe.Net.Framework.Protobuf;
 using OpenCvSharp.Extensions;
 using System.Threading.Tasks;
+using Microsoft.Graphics.Canvas;
+using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,7 +37,11 @@ namespace MediaPipe.PoseDetection;
 public sealed partial class MainWindow : Window
 {
     private static PoseCpuSolution calculator =
-        new (modelComplexity: 2, smoothLandmarks: false);
+        new(modelComplexity: 2, smoothLandmarks: false);
+
+    CanvasBitmap _image;
+
+    private PoseOutput _poseOutput;
 
     public MainWindow()
     {
@@ -44,7 +51,7 @@ public sealed partial class MainWindow : Window
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\pose1.png");
+        var matData = new OpenCvSharp.Mat(Package.Current.InstalledLocation.Path + $"\\Assets\\pose.jpg");
 
         var mat2 = matData.CvtColor(OpenCvSharp.ColorConversionCodes.BGR2RGB);
 
@@ -64,6 +71,9 @@ public sealed partial class MainWindow : Window
 
         if (handsOutput.PoseLandmarks != null)
         {
+            _poseOutput = handsOutput;
+
+            CanvasControl1.Invalidate();
             var landmarks = handsOutput.PoseLandmarks.Landmark;
             Console.WriteLine($"Got pose output with {landmarks.Count} landmarks");
         }
@@ -72,6 +82,7 @@ public sealed partial class MainWindow : Window
             Console.WriteLine("No pose landmarks");
         }
     }
+
     public async Task<SoftwareBitmap> BitmapToBitmapImage(System.Drawing.Bitmap bitmap)
     {
         MemoryStream ms = new MemoryStream();
@@ -87,5 +98,34 @@ public sealed partial class MainWindow : Window
         var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
 
         return softwareBitmap;
+    }
+
+    private void CanvasControl_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+    {
+        if (_image != null)
+        {
+            // Draw the image
+            args.DrawingSession.DrawImage(_image);
+
+        }
+
+        if (_poseOutput != null)
+        {
+            foreach (var Landmark in _poseOutput?.PoseLandmarks?.Landmark)
+            {
+
+                var x = (int)_image.Size.Width * Landmark.X;
+                var y = (int)_image.Size.Height * Landmark.Y;
+                // Draw a point at (100, 100)
+                args.DrawingSession.DrawCircle(x,y , 2, Microsoft.UI.Colors.Red, 6);
+            }
+        }
+    }
+
+    private async void Canvas_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+    {
+        // Load the image from a file
+        var path = Package.Current.InstalledLocation.Path + $"\\Assets\\pose.jpg";
+        _image = await CanvasBitmap.LoadAsync(sender, path);
     }
 }
