@@ -23,6 +23,7 @@ using Windows.Graphics.Imaging;
 using Mediapipe.Net.Framework.Protobuf;
 using OpenCvSharp.Extensions;
 using System.Threading.Tasks;
+using MediaPipe.PoseDetection.Extensions;
 using Microsoft.Graphics.Canvas;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -111,13 +112,20 @@ public sealed partial class MainWindow : Window
 
         if (_poseOutput != null)
         {
+
+
+            var poseLineList = _poseOutput.GetPoseLines(_image.Size.Width, _image.Size.Height);
+            foreach (var postLine in poseLineList)
+            {
+                args.DrawingSession.DrawLine(postLine.StartVector2, postLine.EndVector2, Microsoft.UI.Colors.Green, 4);
+            }
             foreach (var Landmark in _poseOutput?.PoseLandmarks?.Landmark)
             {
 
                 var x = (int)_image.Size.Width * Landmark.X;
                 var y = (int)_image.Size.Height * Landmark.Y;
                 // Draw a point at (100, 100)
-                args.DrawingSession.DrawCircle(x,y , 2, Microsoft.UI.Colors.Red, 6);
+                args.DrawingSession.DrawCircle(x, y, 2, Microsoft.UI.Colors.Red, 2);
             }
         }
     }

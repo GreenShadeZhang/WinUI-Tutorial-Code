@@ -2,6 +2,13 @@
 
 ### 主要是一些Windows App SDK（WinUI3） 学习记录教程的示例代码
 
+## ***MediaPipe.PoseDetection***
+
+这是一个结合MediaPipe解析人体姿态关键点的项目，主要展示WASDK使用MediaPipe的做法。
+
+![pose-mediapipe](/Images/pose-mediapipe.gif)
+
+
 ## ***MediaPipe.GestureClassification***
 
 这是一个结合MediaPipe和ML.NET实现的手部关键点检测和手势分类的项目。主要展示WASDK使用MediaPipe的做法。
@@ -44,6 +51,8 @@
 
 - [WinUI（WASDK）使用MediaPipe检查手部关键点并通过ML.NET进行手势分类 ](https://www.cnblogs.com/GreenShade/p/16967870.html)
 - [WinUI（WASDK）项目实践——优雅的开发上位机应用（新）](https://www.cnblogs.com/GreenShade/p/16654134.html)
+
+- [Pose landmark detection guide](https://developers.google.com/mediapipe/solutions/vision/pose_landmarker#configurations_options)
 
 ## 推荐项目仓库
 - [Windows App SDK - Calling all Windows developers!](https://github.com/microsoft/WindowsAppSDK)
