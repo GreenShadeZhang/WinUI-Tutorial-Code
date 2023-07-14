@@ -48,11 +48,21 @@
                 <hx:Element3DPresenter Content="{Binding BodyModel}" />
                 <hx:Element3DPresenter Content="{Binding RightArmModel}" />
                 <!--<hx:TopMostGroup3D IsHitTestVisible="False">
-                    <hx:LineGeometryModel3D
-                        Geometry="{Binding Axis}"
-                        IsRendering="{Binding ShowAxis, Mode=OneWay}"
-                        Color="White" />
+                
                 </hx:TopMostGroup3D>-->
+                <hx:MeshGeometryModel3D
+                    CullMode="Back"
+                    Geometry="{Binding Sphere}"
+                    IsThrowingShadow="True"
+                    Material="{Binding Material}" />
+                <hx:LineGeometryModel3D
+                    Geometry="{Binding Axis}"
+                    IsRendering="{Binding ShowAxis, Mode=OneWay}"
+                    Color="Red" />
+                <hx:PointGeometryModel3D
+                    Geometry="{Binding PointGeometry}"
+                    IsThrowingShadow="True"
+                    Color="#00D13E" />
                 <hx:PostEffectMeshBorderHighlight EffectName="highlight" />
             </hx:Viewport3DX>
             <ProgressRing IsActive="{Binding LoadModelCommand.IsRunning, Mode=OneWay}" />

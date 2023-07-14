@@ -64,6 +64,22 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
         private set;
         get;
     }
+
+    public Geometry3D PointGeometry
+    {
+        private set; get;
+    }
+
+    public PhongMaterial FloorMaterial
+    {
+        private set; get;
+    }
+
+    public Geometry3D Sphere
+    {
+        private set; get;
+    }
+
     public DiffuseMaterial Material
     {
         private set;
@@ -156,6 +172,7 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
             //        }
             //    }
             //}
+            UpdateAxis();
         }
         catch
         {
@@ -296,6 +313,22 @@ public partial class ModelViewModel : ObservableObject, INavigationAware
         Axis.Colors[2] = Axis.Colors[3] = Color.Green;
         Axis.Colors[4] = Axis.Colors[5] = Color.Blue;
         OnPropertyChanged(nameof(Axis));
+
+        var builder1 = new MeshBuilder();
+        builder1.AddSphere(new Vector3(), 3);
+        builder1.AddSphere(new Vector3(1,1,1), 3);
+        builder1.AddSphere(new Vector3(50, 50, 50), 3);
+        var mesh = builder1.ToMesh();
+        mesh.UpdateOctree();
+        PointGeometry = new PointGeometry3D() { Positions = mesh.Positions };
+        OnPropertyChanged(nameof(PointGeometry));
+
+        var builder2 = new MeshBuilder(true, true, true);
+        builder2.AddSphere(new Vector3(40, 2, 0), 1.5);
+        builder2.AddSphere(new Vector3(80, 2, 0), 2);
+        Sphere = builder2.ToMesh();
+        Sphere.UpdateOctree();
+        OnPropertyChanged(nameof(Sphere));
     }
 
     public void OnNavigatedTo(object parameter)
