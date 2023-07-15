@@ -89,14 +89,14 @@ public sealed partial class MainWindow : Window
 
     public async Task<SoftwareBitmap> BitmapToBitmapImage(System.Drawing.Bitmap bitmap)
     {
-        MemoryStream ms = new MemoryStream();
+        var ms = new MemoryStream();
 
         bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
         ms.Seek(0, SeekOrigin.Begin);
 
         // Create the decoder from the stream
-        BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
+        var decoder = await BitmapDecoder.CreateAsync(ms.AsRandomAccessStream());
 
         // Get the SoftwareBitmap representation of the file
         var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
