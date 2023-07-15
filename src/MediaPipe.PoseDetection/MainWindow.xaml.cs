@@ -48,8 +48,8 @@ public sealed partial class MainWindow : Window
 
     public MainWindow()
     {
-        this.InitializeComponent(); 
-        ViewModel =new ModelViewModel();
+        this.InitializeComponent();
+        ViewModel = new ModelViewModel();
     }
 
 
@@ -76,7 +76,7 @@ public sealed partial class MainWindow : Window
         if (handsOutput.PoseLandmarks != null)
         {
             _poseOutput = handsOutput;
-
+            ViewModel.InitAsync(_poseOutput, (float)_image.Size.Width, (float)_image.Size.Height, 200);
             CanvasControl1.Invalidate();
             var landmarks = handsOutput.PoseLandmarks.Landmark;
             Console.WriteLine($"Got pose output with {landmarks.Count} landmarks");
@@ -138,6 +138,5 @@ public sealed partial class MainWindow : Window
         // Load the image from a file
         var path = Package.Current.InstalledLocation.Path + $"\\Assets\\pose.jpg";
         _image = await CanvasBitmap.LoadAsync(sender, path);
-        ViewModel.InitAsync();
     }
 }

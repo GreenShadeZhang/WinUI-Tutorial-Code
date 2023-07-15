@@ -8,9 +8,11 @@ using HelixToolkit.SharpDX.Core;
 using HelixToolkit.SharpDX.Core.Assimp;
 using HelixToolkit.SharpDX.Core.Model.Scene;
 using HelixToolkit.WinUI;
+using Mediapipe.Net.Solutions;
 using Microsoft.UI.Xaml;
 using SharpDX;
 using Windows.ApplicationModel;
+using MediaPipe.PoseDetection.Extensions;
 
 namespace MediaPipe.PoseDetection;
 
@@ -114,10 +116,10 @@ public partial class ModelViewModel : ObservableObject
 
     }
 
-    public void InitAsync()
+    public void InitAsync(PoseOutput poseOutput, float x, float y, float z)
     {
         FocusCameraToScene();
-        UpdateAxis();
+        UpdateAxis(poseOutput, x, y, z);
     }
 
 
@@ -127,7 +129,7 @@ public partial class ModelViewModel : ObservableObject
         return TextureModel.Create(packageFolder + @"\" + file);
     }
 
-   
+
     private void ResetSettings()
     {
         ShowWireframe = false;
@@ -135,7 +137,7 @@ public partial class ModelViewModel : ObservableObject
 
     private void FocusCameraToScene()
     {
-        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth)+280;
+        var maxWidth = Math.Max(Math.Max(BoundingBox.Width, BoundingBox.Height), BoundingBox.Depth) + 280;
         var pos = BoundingBox.Center + new Vector3(0, 0, maxWidth);
         Camera.Position = pos;
         Camera.LookDirection = BoundingBox.Center - pos;
@@ -146,36 +148,52 @@ public partial class ModelViewModel : ObservableObject
         }
     }
 
-    private void UpdateAxis()
+    private void UpdateAxis(PoseOutput poseOutput, float x, float y, float z)
     {
-        float multiplier = 1.25f;
-        var builder = new LineBuilder();
-        builder.AddLine(ModelCentroid - new Vector3(BoundingBox.Width / 2 * multiplier, 0, 0), ModelCentroid + new Vector3(boundingBox.Width / 2 * multiplier, 0, 0));
-        builder.AddLine(ModelCentroid - new Vector3(0, BoundingBox.Height / 2 * multiplier, 0), ModelCentroid + new Vector3(0, boundingBox.Height / 2 * multiplier, 0));
-        builder.AddLine(ModelCentroid - new Vector3(0, 0, BoundingBox.Depth / 2 * multiplier), ModelCentroid + new Vector3(0, 0, boundingBox.Depth / 2 * multiplier));
-        Axis = builder.ToLineGeometry3D();
-        Axis.Colors = new Color4Collection();
-        Axis.Colors.Resize(Axis.Positions.Count, true);
-        Axis.Colors[0] = Axis.Colors[1] = Color.Red;
-        Axis.Colors[2] = Axis.Colors[3] = Color.Green;
-        Axis.Colors[4] = Axis.Colors[5] = Color.Blue;
-        OnPropertyChanged(nameof(Axis));
+        if (poseOutput != null)
+        {
+            var postLine3Ds = poseOutput.GetPose3DLines(x, y, z);
 
-        var builder1 = new MeshBuilder();
-        builder1.AddSphere(new Vector3(), 3);
-        builder1.AddSphere(new Vector3(1,1,1), 3);
-        builder1.AddSphere(new Vector3(50, 50, 50), 3);
-        var mesh = builder1.ToMesh();
-        mesh.UpdateOctree();
-        PointGeometry = new PointGeometry3D() { Positions = mesh.Positions };
-        OnPropertyChanged(nameof(PointGeometry));
+            var builder = new LineBuilder();
 
-        var builder2 = new MeshBuilder(true, true, true);
-        builder2.AddSphere(new Vector3(40, 2, 0), 1.5);
-        builder2.AddSphere(new Vector3(80, 2, 0), 2);
-        Sphere = builder2.ToMesh();
-        Sphere.UpdateOctree();
-        OnPropertyChanged(nameof(Sphere));
+            foreach (var postLine3D in postLine3Ds)
+            {
+                builder.AddLine(new Vector3(postLine3D.StartVector3.X, -postLine3D.StartVector3.Y, -postLine3D.StartVector3.Z), new Vector3(postLine3D.EndVector3.X, -postLine3D.EndVector3.Y, -postLine3D.EndVector3.Z));
+            }
+
+            float multiplier = 1.25f;
+
+            Axis = builder.ToLineGeometry3D();
+            //Axis.Colors = new Color4Collection();
+            //Axis.Colors.Resize(Axis.Positions.Count, true);
+            //Axis.Colors[0] = Axis.Colors[1] = Color.Red;
+            //Axis.Colors[2] = Axis.Colors[3] = Color.Green;
+            //Axis.Colors[4] = Axis.Colors[5] = Color.Blue;
+            OnPropertyChanged(nameof(Axis));
+
+            var builder1 = new MeshBuilder();
+
+            if (poseOutput.PoseWorldLandmarks != null)
+            {
+                foreach (var landmark in poseOutput.PoseWorldLandmarks.Landmark)
+                {
+                    builder1.AddSphere(new Vector3(landmark.X * x, -landmark.Y * y, -landmark.Z * z), 3);
+                }
+            }
+
+            var mesh = builder1.ToMesh();
+
+            mesh.UpdateOctree();
+
+            PointGeometry = new PointGeometry3D() { Positions = mesh.Positions };
+            OnPropertyChanged(nameof(PointGeometry));
+
+            var builder2 = new MeshBuilder(true, true, true);
+            builder2.AddSphere(new Vector3(0, 0, 0), 5);
+            Sphere = builder2.ToMesh();
+            Sphere.UpdateOctree();
+            OnPropertyChanged(nameof(Sphere));
+        }
     }
 }
 
