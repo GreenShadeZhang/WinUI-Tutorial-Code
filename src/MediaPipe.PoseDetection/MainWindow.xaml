@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hx="using:HelixToolkit.WinUI"
     xmlns:local="using:MediaPipe.PoseDetection"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -24,10 +25,47 @@
         <TextBlock x:Name="HandResult" FontSize="72" />-->
             </StackPanel>
             <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
                 <canvas:CanvasControl
                     x:Name="CanvasControl1"
                     CreateResources="Canvas_CreateResources"
                     Draw="CanvasControl_Draw" />
+                <Grid Grid.Column="1">
+                    <hx:Viewport3DX
+                        x:Name="viewport"
+                        BackgroundColor="Transparent"
+                        Camera="{x:Bind ViewModel.Camera, Mode=OneWay}"
+                        EffectsManager="{x:Bind ViewModel.EffectsManager, Mode=OneWay}"
+                        FXAALevel="High"
+                        FixedRotationPoint="{x:Bind ViewModel.ModelCentroid, Mode=OneWay}"
+                        FixedRotationPointEnabled="True"
+                        ManipulationMode="All"
+                        ShowCoordinateSystem="True">
+                        <hx:DirectionalLight3D Direction="{x:Bind ViewModel.Camera.LookDirection, Mode=OneWay}" Color="White" />
+                        <hx:Element3DPresenter Content="{x:Bind ViewModel.BodyModel, Mode=OneWay}" />
+                        <hx:Element3DPresenter Content="{x:Bind ViewModel. RightArmModel, Mode=OneWay}" />
+                        <!--<hx:TopMostGroup3D IsHitTestVisible="False">
+
+                </hx:TopMostGroup3D>-->
+                        <hx:MeshGeometryModel3D
+                            CullMode="Back"
+                            Geometry="{x:Bind ViewModel.Sphere, Mode=OneWay}"
+                            IsThrowingShadow="True"
+                            Material="{x:Bind ViewModel.Material, Mode=OneWay}" />
+                        <hx:LineGeometryModel3D
+                            Geometry="{x:Bind ViewModel.Axis, Mode=OneWay}"
+                            IsRendering="True"
+                            Color="Red" />
+                        <hx:PointGeometryModel3D
+                            Geometry="{x:Bind ViewModel.PointGeometry, Mode=OneWay}"
+                            IsThrowingShadow="True"
+                            Color="#00D13E" />
+                        <hx:PostEffectMeshBorderHighlight EffectName="highlight" />
+                    </hx:Viewport3DX>
+                </Grid>
             </Grid>
         </Grid>
     </ScrollViewer>

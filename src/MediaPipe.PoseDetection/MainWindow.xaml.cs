@@ -44,9 +44,12 @@ public sealed partial class MainWindow : Window
 
     private PoseOutput _poseOutput;
 
+    private ModelViewModel ViewModel;
+
     public MainWindow()
     {
-        this.InitializeComponent();
+        this.InitializeComponent(); 
+        ViewModel =new ModelViewModel();
     }
 
 
@@ -68,7 +71,7 @@ public sealed partial class MainWindow : Window
 
         var imgframe = new ImageFrame(ImageFormat.Types.Format.Srgb, mat2.Width, mat2.Height, widthStep, data);
 
-        PoseOutput handsOutput = calculator.Compute(imgframe);
+        var handsOutput = calculator.Compute(imgframe);
 
         if (handsOutput.PoseLandmarks != null)
         {
@@ -135,5 +138,6 @@ public sealed partial class MainWindow : Window
         // Load the image from a file
         var path = Package.Current.InstalledLocation.Path + $"\\Assets\\pose.jpg";
         _image = await CanvasBitmap.LoadAsync(sender, path);
+        ViewModel.InitAsync();
     }
 }
