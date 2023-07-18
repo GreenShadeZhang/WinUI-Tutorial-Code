@@ -4,14 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="MainPage_OnLoaded">
 
     <Grid x:Name="ContentArea">
-        <Button
+        <!--<Button
             x:Name="myButton"
             HorizontalAlignment="Center"
             Command="{x:Bind ViewModel.SwitchCommand}">
             Click Me
-        </Button>
+        </Button>-->
+
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock x:Name="Output" FontSize="32" />
+                <TextBlock x:Name="Result" FontSize="24" />
+            </StackPanel>
+
+        </ScrollViewer>
     </Grid>
 </Page>
