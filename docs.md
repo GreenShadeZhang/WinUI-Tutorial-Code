@@ -1,4 +1,5 @@
-GreenShadeZhang: 学习windows app sdk必须要掌握的c#知识包含关键字的解释 给出一个大纲
+
+### 学习WASDK（WinUI 3）要掌握的c#知识
 
 GitHub Copilot: 以下是学习 Windows App SDK 必须要掌握的 C# 知识大纲：
 
@@ -86,3 +87,25 @@ namespace MyApp
     }
 }
 ```
+
+### 学习WASDK（WinUI 3）要掌握的XAML知识有哪些
+
+GitHub Copilot: 要学习WASDK（WinUI）开发，需要掌握以下XAML知识：
+
+1. XAML语法：XAML是一种基于XML的标记语言，用于定义用户界面和应用程序行为。学习XAML语法是理解WASDK开发的基础。
+
+2. 布局：WASDK应用程序的布局是通过XAML中的布局控件来实现的。例如，Grid、StackPanel、RelativePanel等。
+
+3. 控件：WASDK应用程序中的控件是通过XAML中的控件元素来定义的。例如，Button、TextBox、ListView等。
+
+4. 样式和模板：WASDK应用程序中的控件可以通过样式和模板来自定义外观和行为。学习如何创建和应用样式和模板是非常重要的。
+
+5. 数据绑定：WASDK应用程序中的控件可以通过数据绑定来显示和编辑数据。学习如何使用数据绑定是非常重要的。
+
+6. 动画：WASDK应用程序中的控件可以通过动画来实现视觉效果。学习如何创建和应用动画是非常重要的。
+
+7. 事件处理：WASDK应用程序中的控件可以通过事件处理程序来响应用户交互。学习如何创建和应用事件处理程序是非常重要的。
+
+8. 自定义控件：WASDK应用程序中的控件可以通过自定义控件来实现特定的功能。学习如何创建和使用自定义控件是非常重要的。
+
+以上是学习WASDK开发所需掌握的XAML知识的一些重要方面。
