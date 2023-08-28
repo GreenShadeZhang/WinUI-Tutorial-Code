@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LayoutExercise (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LayoutExercise (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
