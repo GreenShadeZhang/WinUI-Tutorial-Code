@@ -43,3 +43,18 @@
 
 + [WindowsCommunityToolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit)
 
+### WASDK（WinUI 3）从入门到干活——开发上位机软件（四）MVVM讲解和项目打包发布
++ [数据绑定和 MVVM](https://learn.microsoft.com/zh-cn/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-8.0)
+
++ [mvvm模式和双向数据绑定理解](https://zhuanlan.zhihu.com/p/106304556)
+
++ [[WPF] 使用 MVVM Toolkit 构建 MVVM 程序 ](https://www.cnblogs.com/dino623/p/building_MVVM_programs_using_MVVM_Toolkit.html)
+
++ [Template Studio](https://github.com/microsoft/TemplateStudio)
+
++ 代码后置和MVVM的区别
+
++ 代码演示和项目的打包
+
++ [部署概述](https://learn.microsoft.com/zh-cn/windows/apps/package-and-deploy/)
+
