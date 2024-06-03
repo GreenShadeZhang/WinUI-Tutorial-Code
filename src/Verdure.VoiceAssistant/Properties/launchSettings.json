@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Verdure.VoiceAssistant (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Verdure.VoiceAssistant (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
