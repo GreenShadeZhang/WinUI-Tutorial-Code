@@ -30,7 +30,7 @@ public sealed partial class MainWindow : Window
     private async void myButton_Click(object sender, RoutedEventArgs e)
     {
         myButton.Content = "Clicked";
-        await VoiceAssistantHelper.Instance.InitializeRecognizerAsync();
+        await VoiceAssistantHelper.Instance.InitializeKeywordRecognizerAsync();
     }
 
     private async void Start_Click(object sender, RoutedEventArgs e)
