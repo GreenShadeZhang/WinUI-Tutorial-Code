@@ -21,15 +21,17 @@ public class FrameExtractor
         var frameRate = mediaInfo.VideoData.Fps;
         var frameCount = (int)(duration.TotalSeconds * frameRate);
 
-        for (int i = 0; i < frameCount; i++)
+        for (var i = 0; i < frameCount; i++)
         {
+            var timestamp = TimeSpan.FromSeconds(i / frameRate);
             var outputFilePath = $"frame_{i}.jpg";
-            await ffmpeg.GetThumbnailAsync(mediaFile, new OutputFile(outputFilePath), CancellationToken.None);
+            var arguments = $"-i \"{filePath}\" -vf \"select='eq(n\\,{i})'\" -vsync vfr -q:v 2 \"{outputFilePath}\"";
+            await ffmpeg.ExecuteAsync(arguments, CancellationToken.None);
             var frameImage = await File.ReadAllBytesAsync(outputFilePath);
             var frameData = new FrameData
             {
                 ImageData = frameImage,
-                Timestamp = TimeSpan.FromSeconds(i / frameRate)
+                Timestamp = timestamp
             };
             frames.Add(frameData);
         }
