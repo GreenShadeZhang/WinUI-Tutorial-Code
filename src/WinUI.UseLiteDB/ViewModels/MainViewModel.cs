@@ -1,35 +1,29 @@
-﻿using CommunityToolkit.WinUI;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.WinUI.Collections;
 using WinUI.UseLiteDB.Helpers;
 using WinUI.UseLiteDB.Models;
 using WinUI.UseLiteDB.Services;
 
-namespace WinUI.UseLiteDB.ViewModels
+namespace WinUI.UseLiteDB.ViewModels;
+
+public class MainViewModel : Observable
 {
-    public class MainViewModel : Observable
+    public MainViewModel()
     {
-        public MainViewModel()
+
+    }
+
+    private ObservableCollection<PersonalInfoDto> infos = new IncrementalLoadingCollection<PersonalInfoSource, PersonalInfoDto>(new PersonalInfoSource());
+
+    public ObservableCollection<PersonalInfoDto> Infos
+    {
+        get
         {
-
+            return infos;
         }
-
-        private ObservableCollection<PersonalInfoDto> infos = new IncrementalLoadingCollection<PersonalInfoSource,PersonalInfoDto>();
-
-        public ObservableCollection<PersonalInfoDto> Infos 
-        { 
-            get 
-            { 
-                return infos; 
-            }
-            set
-            {
-                Set(ref infos,value);
-            }
+        set
+        {
+            Set(ref infos, value);
         }
     }
 }

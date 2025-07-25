@@ -3,57 +3,57 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBehindBinding", "CodeBehindBinding\CodeBehindBinding.csproj", "{D38D2504-8479-4016-9C1A-F2BC536940A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBehindBinding", "src\CodeBehindBinding\CodeBehindBinding.csproj", "{D38D2504-8479-4016-9C1A-F2BC536940A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVVMBinding", "MVVMBinding\MVVMBinding.csproj", "{06560027-89A1-41A4-9BB9-EA8206678B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVVMBinding", "src\MVVMBinding\MVVMBinding.csproj", "{06560027-89A1-41A4-9BB9-EA8206678B6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectComparison", "ProjectComparison", "{265E1F6A-7C07-4F91-8BD6-67AD7A051D74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "ProjectComparison\WpfApp\WpfApp.csproj", "{3B2EC6BC-6059-4DE5-8365-0977D760FC30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "src\ProjectComparison\WpfApp\WpfApp.csproj", "{3B2EC6BC-6059-4DE5-8365-0977D760FC30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI-Desktop", "ProjectComparison\WinUI-Desktop\WinUI-Desktop.csproj", "{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI-Desktop", "src\ProjectComparison\WinUI-Desktop\WinUI-Desktop.csproj", "{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpApp", "ProjectComparison\UwpApp\UwpApp.csproj", "{5B50DB0B-5E14-48B2-B416-2687E8AB0110}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpApp", "src\ProjectComparison\UwpApp\UwpApp.csproj", "{5B50DB0B-5E14-48B2-B416-2687E8AB0110}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI.UseLiteDB", "WinUI.UseLiteDB\WinUI.UseLiteDB.csproj", "{66264FAC-B1EF-4C9C-B404-C391A17158DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI.UseLiteDB", "src\WinUI.UseLiteDB\WinUI.UseLiteDB.csproj", "{66264FAC-B1EF-4C9C-B404-C391A17158DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraFrames", "CameraFrames\CameraFrames\CameraFrames.csproj", "{ABA7BDC6-D65D-436A-BA6F-7438728DAFD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraFrames", "src\CameraFrames\CameraFrames\CameraFrames.csproj", "{ABA7BDC6-D65D-436A-BA6F-7438728DAFD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTS", "SpeechAndTTS\SpeechAndTTS.csproj", "{554735E5-0DD0-4A63-A850-5D5250DFA98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTS", "src\SpeechAndTTS\SpeechAndTTS.csproj", "{554735E5-0DD0-4A63-A850-5D5250DFA98E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTSByNav", "SpeechAndTTSByNav\SpeechAndTTSByNav.csproj", "{0546DC46-9178-4369-9BDA-84DB3D43B1BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTSByNav", "src\SpeechAndTTSByNav\SpeechAndTTSByNav.csproj", "{0546DC46-9178-4369-9BDA-84DB3D43B1BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTSByNav.Core", "SpeechAndTTSByNav.Core\SpeechAndTTSByNav.Core.csproj", "{916905A2-A65D-4594-BE2E-428BC862D470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechAndTTSByNav.Core", "src\SpeechAndTTSByNav.Core\SpeechAndTTSByNav.Core.csproj", "{916905A2-A65D-4594-BE2E-428BC862D470}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RainDayForWASDK", "RainDayForWASDK\RainDayForWASDK.csproj", "{CE42A763-7524-4016-AB59-5506AEDD5CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RainDayForWASDK", "src\RainDayForWASDK\RainDayForWASDK.csproj", "{CE42A763-7524-4016-AB59-5506AEDD5CE5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamepadController", "GamepadController\GamepadController.csproj", "{D6DC3054-45C1-4916-B579-9630DA2D9EBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamepadController", "src\GamepadController\GamepadController.csproj", "{D6DC3054-45C1-4916-B579-9630DA2D9EBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaPipe.GestureClassification", "MediaPipe.GestureClassification\MediaPipe.GestureClassification.csproj", "{54BFFF43-7ED1-4E44-8049-C9652C3861C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaPipe.GestureClassification", "src\MediaPipe.GestureClassification\MediaPipe.GestureClassification.csproj", "{54BFFF43-7ED1-4E44-8049-C9652C3861C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediapipe.Net", "Mediapipe.Net\Mediapipe.Net.csproj", "{0F6D497C-44DE-4BAB-8F22-94122C74B96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediapipe.Net", "src\Mediapipe.Net\Mediapipe.Net.csproj", "{0F6D497C-44DE-4BAB-8F22-94122C74B96B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestureClassification", "GestureClassification\GestureClassification.csproj", "{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestureClassification", "src\GestureClassification\GestureClassification.csproj", "{0F8C7AD9-50C3-45F7-A4D7-1B291719C52A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HandMediaPipe", "HandMediaPipe", "{9E3561FB-473B-49FE-9238-BD5547252498}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompactOverlayWindow", "CompactOverlayWindow\CompactOverlayWindow.csproj", "{82EB6258-234C-4504-BF9D-834B008FF3F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompactOverlayWindow", "src\CompactOverlayWindow\CompactOverlayWindow.csproj", "{82EB6258-234C-4504-BF9D-834B008FF3F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompactOverlayWindow.Core", "CompactOverlayWindow.Core\CompactOverlayWindow.Core.csproj", "{92B0097E-3913-42E5-94C6-7007A42A5E7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompactOverlayWindow.Core", "src\CompactOverlayWindow.Core\CompactOverlayWindow.Core.csproj", "{92B0097E-3913-42E5-94C6-7007A42A5E7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelViewer", "ModelViewer\ModelViewer.csproj", "{F34C380D-59DC-49F0-915F-1B046C001135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelViewer", "src\ModelViewer\ModelViewer.csproj", "{F34C380D-59DC-49F0-915F-1B046C001135}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelViewer.Core", "ModelViewer.Core\ModelViewer.Core.csproj", "{C1ECE4E8-74CB-44C6-A51A-66C194ABDF9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelViewer.Core", "src\ModelViewer.Core\ModelViewer.Core.csproj", "{C1ECE4E8-74CB-44C6-A51A-66C194ABDF9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PoseMediaPipe", "PoseMediaPipe", "{62DA92B2-6BF3-4F5C-8958-41E385B58160}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaPipe.PoseDetection", "MediaPipe.PoseDetection\MediaPipe.PoseDetection.csproj", "{83A01D9A-FBE0-4F03-AE7E-07CBC1ABBFF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaPipe.PoseDetection", "src\MediaPipe.PoseDetection\MediaPipe.PoseDetection.csproj", "{83A01D9A-FBE0-4F03-AE7E-07CBC1ABBFF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LayoutExercise", "LayoutExercise\LayoutExercise.csproj", "{1F6BDFB8-874F-45B7-9BB2-11C401ABC9BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LayoutExercise", "src\LayoutExercise\LayoutExercise.csproj", "{1F6BDFB8-874F-45B7-9BB2-11C401ABC9BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verdure.VoiceAssistant", "Verdure.VoiceAssistant\Verdure.VoiceAssistant.csproj", "{58F28954-B781-4C1C-9DB5-6D44C250DDD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verdure.VoiceAssistant", "src\Verdure.VoiceAssistant\Verdure.VoiceAssistant.csproj", "{58F28954-B781-4C1C-9DB5-6D44C250DDD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFmpegImageSharp", "FFmpegImageSharp\FFmpegImageSharp.csproj", "{E9FE2BCE-5B95-4BAB-B9B1-D9E92D99EBF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFmpegImageSharp", "src\FFmpegImageSharp\FFmpegImageSharp.csproj", "{E9FE2BCE-5B95-4BAB-B9B1-D9E92D99EBF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +143,7 @@ Global
 		{3B2EC6BC-6059-4DE5-8365-0977D760FC30}.Release|x86.Build.0 = Release|Any CPU
 		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|Any CPU.Build.0 = Debug|x64
+		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|ARM.ActiveCfg = Debug|x64
 		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|ARM.Build.0 = Debug|x64
 		{7DC8BD3B-9BF2-45D6-9242-1B3BDC1553CE}.Debug|ARM.Deploy.0 = Debug|x64

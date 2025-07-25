@@ -2,7 +2,6 @@
     x:Class="WinUI.UseLiteDB.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:data="using:WinUI.UseLiteDB.Models"
     xmlns:local="using:WinUI.UseLiteDB"
@@ -10,20 +9,16 @@
     mc:Ignorable="d">
 
     <Grid>
-        <controls:AdaptiveGridView
-            DesiredWidth="360"
-            ItemHeight="240"
-            ItemsSource="{x:Bind ViewModel.Infos, Mode=OneWay}"
-            OneRowModeEnabled="False"
-            StretchContentForSingleRow="False">
-            <controls:AdaptiveGridView.ItemTemplate>
+        <GridView
+            ItemsSource="{x:Bind ViewModel.Infos, Mode=OneWay}">
+            <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:PersonalInfoDto">
-                    <Grid>
+                    <Grid Height="240">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <controls:ImageEx Margin="8" Source="{x:Bind AvatarBitmap, Mode=OneWay}" />
+                        <Image Margin="8" Source="{x:Bind AvatarBitmap, Mode=OneWay}" />
                         <StackPanel Grid.Column="1" Margin="8">
                             <TextBlock
                                 Margin="0,0,0,8"
@@ -38,7 +33,7 @@
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </controls:AdaptiveGridView.ItemTemplate>
-        </controls:AdaptiveGridView>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Window>

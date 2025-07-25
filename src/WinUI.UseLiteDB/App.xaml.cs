@@ -34,25 +34,19 @@ namespace WinUI.UseLiteDB
         /// <param name="args">Details about the launch request and process.</param>
         protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            string assetsDbDataPath = Package.Current.InstalledLocation.Path + @"\Assets\data-litedb.db";
+            var assetsDbDataPath = Package.Current.InstalledLocation.Path + @"\Assets\data-litedb.db";
 
-            string dbDataPath = ApplicationData.Current.LocalFolder.Path + @"\data-litedb.db";
+            var dbDataPath = ApplicationData.Current.LocalFolder.Path + @"\data-litedb.db";
 
-            string dbData = Package.Current.InstalledLocation.Path + @"\Assets\db-data.json";
+            var dbData = Package.Current.InstalledLocation.Path + @"\Assets\db-data.json";           
 
-            if (!File.Exists(dbDataPath) || SystemInformation.Instance.IsFirstRun || SystemInformation.Instance.IsAppUpdated)
-            {
-                File.Copy(assetsDbDataPath, dbDataPath, true);
-            }
+            File.Copy(assetsDbDataPath, dbDataPath, true);
 
             Repository = new PersonalInfoRepository(dbDataPath);
 
-            if (SystemInformation.Instance.IsFirstRun)
-            {
-                var dataModel = System.Text.Json.JsonSerializer.Deserialize<PersonalInfoModel>(File.ReadAllText(dbData));
+            var dataModel = System.Text.Json.JsonSerializer.Deserialize<PersonalInfoModel>(File.ReadAllText(dbData));
 
-                await Repository.BatchAddAsync(dataModel.Data);
-            }
+            await Repository.BatchAddAsync(dataModel.Data);
 
             m_window = new MainWindow();
             m_window.Activate();
