@@ -4,6 +4,8 @@ This project uses Microsoft's modern .NET UWP project template. It remains a UWP
 
 The project requires Visual Studio 2026 with the Universal Windows Platform tools and Windows SDK 10.0.26100.0. Build it with Visual Studio MSBuild, then use `winapp` to register and launch the packaged output:
 
+The root `WinUITutorialCode.slnx` marks this project as the default startup project. Visual Studio keeps a manually selected startup project in local solution state, so use **Set as Startup Project** on `UwpApp` if a previous selection overrides that default.
+
 ```powershell
 msbuild .\src\ProjectComparison\UwpApp\UwpApp.csproj /restore /t:Build /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64
 winapp run .\src\ProjectComparison\UwpApp\UwpApp.csproj --no-build --detach --arch x64 --configuration Release --property Platform=x64
