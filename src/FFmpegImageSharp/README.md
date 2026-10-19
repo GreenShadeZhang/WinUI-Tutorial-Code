@@ -27,7 +27,8 @@ dotnet-ffmpeg-imagesharp
    ```
 
 2. **Install dependencies:**
-   Ensure you have the .NET SDK installed. You can install the required packages using the following command:
+   Ensure you have the .NET SDK and FFmpeg installed. Add FFmpeg to `PATH`, or set `FFMPEG_PATH` to the full path of `ffmpeg.exe`.
+   You can restore the required NuGet packages using the following command:
    ```
    dotnet restore
    ```

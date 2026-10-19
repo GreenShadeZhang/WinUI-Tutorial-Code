@@ -13,7 +13,13 @@ public class FrameExtractor
     public async Task<List<FrameData>> ExtractFramesAsync(string filePath)
     {
         var frames = new List<FrameData>();
-        var ffmpeg = new Engine("C:\\ffmpeg-n7.1-latest-win64-gpl-7.1\\ffmpeg-n7.1-latest-win64-gpl-7.1\\bin\\ffmpeg.exe"); // Specify the path to ffmpeg executable
+        var ffmpegPath = Environment.GetEnvironmentVariable("FFMPEG_PATH");
+        if (string.IsNullOrWhiteSpace(ffmpegPath))
+        {
+            ffmpegPath = "ffmpeg.exe";
+        }
+
+        var ffmpeg = new Engine(ffmpegPath);
 
         var mediaFile = new InputFile(filePath); // Use a concrete class instead of MediaFile
         var mediaInfo = await ffmpeg.GetMetaDataAsync(mediaFile, CancellationToken.None);
